@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:graduation_project/views/confirm_exchange.dart';
+import 'package:graduation_project/views/confirm_order.dart';
 import 'package:graduation_project/widgets/book_details.dart';
-import 'package:graduation_project/widgets/book_item.dart';
 class BookView extends StatelessWidget {
   const BookView({super.key});
 
@@ -11,17 +12,17 @@ class BookView extends StatelessWidget {
     return  Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Book page',
+        title: const Text('Book page',
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
         ),
-        leading: Icon(Icons.arrow_back_ios_new_sharp,
+        leading: const Icon(Icons.arrow_back_ios_new_sharp,
         ),
-        actions: [
+        actions: const [
         Padding(
-          padding: const EdgeInsets.only(right: 20),
+          padding: EdgeInsets.only(right: 20),
           child: Icon(Icons.favorite_border_outlined),
         ),
         ],
@@ -41,7 +42,7 @@ class BookView extends StatelessWidget {
                        width: 185,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.circular(10),
-                         image: DecorationImage(
+                         image: const DecorationImage(
                            fit: BoxFit.fill,
                            image:AssetImage('assets/images/ibn.jpg',
                            ),
@@ -49,16 +50,16 @@ class BookView extends StatelessWidget {
                        ),
                      ),
                    ),
-                   SizedBox(
+                   const SizedBox(
                      height: 30,
                    ),
-                   Text('Book name',
+                   const Text('Book name',
                      style: TextStyle(
                        fontSize: 20,
                        fontWeight: FontWeight.bold,
                      ),
                    ),
-                   SizedBox(
+                   const SizedBox(
                      height: 30,
                    ),
                    BookDetails(attribute: 'Edition', description: '1999'),
@@ -71,7 +72,7 @@ class BookView extends StatelessWidget {
                    ),
                  ],
                ),
-               Divider(
+               const Divider(
                  height: 10,
                  thickness: 2.35,
                  color: Colors.grey,
@@ -84,28 +85,37 @@ class BookView extends StatelessWidget {
                  children: [
                    ElevatedButton(
                      style:ElevatedButton.styleFrom(
-                       textStyle: TextStyle(
+                       textStyle: const TextStyle(
                          fontSize: 20,
                          fontWeight: FontWeight.w500,
                        ) ,
                        backgroundColor: Color(0xff0766AD),
                        fixedSize: Size(220, 60),
                      ),
-                     onPressed: (){}, child: Text('Order',
+                     onPressed: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context){
+                         return ConfirmOrder();
+                       }));
+                     }, child: const Text('Order',
                    ),
                    ),
 
                    ElevatedButton(
                      style:ElevatedButton.styleFrom(
-                       textStyle: TextStyle(
+                       textStyle: const TextStyle(
                          fontSize: 20,
                          fontWeight: FontWeight.w500,
                        ) ,
-                       backgroundColor: Color(0xffE2E7F0),
-                       fixedSize: Size(140, 60),
+                       backgroundColor: const Color(0xffE2E7F0),
+                       fixedSize: const Size(140, 60),
                        foregroundColor: Colors.black,
                      ),
-                     onPressed: (){}, child: Text('Exchange',
+                     onPressed: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return ConfirmExchange();
+                       }
+                       ));
+                     }, child: Text('Exchange',
                    ),
                    ),
                  ],
