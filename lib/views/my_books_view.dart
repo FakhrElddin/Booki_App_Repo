@@ -5,13 +5,19 @@ class MyBooksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('My Books Screen'),
-        ],
+    return Scaffold(
+      floatingActionButton: SizedBox(
+        width: 70,
+        height: 70,
+        child: FloatingActionButton(
+          onPressed: (){},
+          child: const Icon(
+            Icons.add,
+            size: 32,
+          ),
+        ),
       ),
+      body: Column(),
     );
   }
 }
