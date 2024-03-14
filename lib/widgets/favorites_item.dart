@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/constants.dart';
 
-class MyBooksItem extends StatelessWidget {
-  const MyBooksItem({super.key});
+class FavoritesItem extends StatelessWidget {
+  const FavoritesItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +54,8 @@ class MyBooksItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    const Spacer(),
-                    IconButton(
-                      onPressed: (){},
-                      icon: const Icon(
-                        Icons.more_horiz,
-                      ),
-                    ),
-                  ],
+                const SizedBox(
+                  height: 16,
                 ),
                 Text(
                   'I Have Something to Tell You',
@@ -74,6 +66,30 @@ class MyBooksItem extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                     height: 1.5,
                   ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 15,
+                      backgroundImage: NetworkImage(
+                          'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg'
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'seller name',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
                 ),
                 const Spacer(),
                 Row(
