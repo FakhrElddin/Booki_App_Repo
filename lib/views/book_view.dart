@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:graduation_project/views/confirm_exchange.dart';
 import 'package:graduation_project/views/confirm_order.dart';
 import 'package:graduation_project/widgets/book_details.dart';
+
+import 'book_owner_profile.dart';
 class BookView extends StatelessWidget {
   const BookView({super.key});
 
@@ -70,14 +72,45 @@ class BookView extends StatelessWidget {
                    SizedBox(
                      height: 20,
                    ),
+                   const Divider(
+                     height: 10,
+                     thickness: 2.35,
+                     color: Colors.grey,
+                     indent: 50,
+                     endIndent: 50,
+                   ),
+                   const SizedBox(
+                     height: 10,
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.symmetric(horizontal: 20),
+                     child: GestureDetector(
+                       onTap: (){
+                         Navigator.push(context, MaterialPageRoute(builder: (context){
+                           return const BookOwnerProfile();
+                         }));
+                       },
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         children: [
+                           CircleAvatar(
+                             radius: 30,
+                             backgroundImage:
+                              AssetImage('assets/images/profile.jpg',
+                             ),
+                           ),
+                           SizedBox(width: 30),
+                           Text('Book owner name',
+                             style: const TextStyle(
+                               fontSize: 20,
+                               fontWeight: FontWeight.w500,
+                             ),
+                           ),
+                         ],
+                       ),
+                     ),
+                   ),
                  ],
-               ),
-               const Divider(
-                 height: 10,
-                 thickness: 2.35,
-                 color: Colors.grey,
-                 indent: 50,
-                 endIndent: 50,
                ),
                SizedBox(height: 15),
                Row(
@@ -89,12 +122,12 @@ class BookView extends StatelessWidget {
                          fontSize: 20,
                          fontWeight: FontWeight.w500,
                        ) ,
-                       backgroundColor: Color(0xff0766AD),
-                       fixedSize: Size(220, 60),
+                       backgroundColor: const Color(0xff0766AD),
+                       fixedSize: const Size(220, 60),
                      ),
                      onPressed: (){
                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                         return ConfirmOrder();
+                         return const ConfirmOrder();
                        }));
                      }, child: const Text('Order',
                    ),
@@ -112,10 +145,10 @@ class BookView extends StatelessWidget {
                      ),
                      onPressed: (){
                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return ConfirmExchange();
+                        return const ConfirmExchange();
                        }
                        ));
-                     }, child: Text('Exchange',
+                     }, child: const Text('Exchange',
                    ),
                    ),
                  ],
