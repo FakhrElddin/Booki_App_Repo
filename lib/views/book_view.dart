@@ -57,7 +57,7 @@ class BookView extends StatelessWidget {
                         ClipRRect(
                           child: CachedNetworkImage(
                             width: 350,
-                            height: 361,
+                            height: 360,
                             fit: BoxFit.fill,
                             imageUrl: "https://m.media-amazon.com/images/I/518m+S44fdL.jpg",
                             progressIndicatorBuilder: (context, url, downloadProgress) =>
