@@ -48,27 +48,26 @@ class BookView extends StatelessWidget {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 16,
-                  ),
                   Center(
-                    child: Container(
-                      height: 275,
-                      width: 185,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: const DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage(
-                            'assets/images/ibn.jpg',
+                    child:
+                    Stack(
+                      children: [
+                        ClipRRect(
+                          child: CachedNetworkImage(
+                            width: 350,
+                            height: 360,
+                            fit: BoxFit.fill,
+                            imageUrl: "https://m.media-amazon.com/images/I/518m+S44fdL.jpg",
+                            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                            errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
                           ),
                         ),
-                      ),
+                      ],
+
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
                   ),
                   const Text(
                     'Book name',
@@ -103,7 +102,7 @@ class BookView extends StatelessWidget {
                           return const BookOwnerProfile();
                         }));
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CircleAvatar(
@@ -112,10 +111,12 @@ class BookView extends StatelessWidget {
                               'assets/images/profile.jpg',
                             ),
                           ),
-                          SizedBox(width: 30,),
+                          SizedBox(
+                            width: 30,
+                          ),
                           Text(
                             'Book owner name',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -124,7 +125,9 @@ class BookView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24,),
+                  const SizedBox(
+                    height: 24,
+                  ),
                 ],
               ),
             ),
