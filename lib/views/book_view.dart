@@ -4,7 +4,7 @@ import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/views/confirm_exchange.dart';
 import 'package:graduation_project/views/confirm_order.dart';
 import 'package:graduation_project/widgets/book_details.dart';
-import 'book_owner_profile.dart';
+import 'book_owner_view.dart';
 
 class BookView extends StatelessWidget {
   const BookView({super.key});
