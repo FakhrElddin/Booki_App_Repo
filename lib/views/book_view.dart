@@ -79,8 +79,8 @@ class BookView extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  BookDetails(editiondetails: '1999', categorydetails: 'Religious', timeUseddetails: '2 years', pricedetails: '200 L.E', statusdetails: 'Good'),
-                  SizedBox(
+                  const BookDetails(editiondetails: '1999', categorydetails: 'Religious', timeUseddetails: '2 years', pricedetails: '200 L.E', statusdetails: 'Good'),
+                  const SizedBox(
                     height: 20,
                   ),
                   const Divider(
