@@ -103,16 +103,19 @@ class BookView extends StatelessWidget {
                         }));
                       },
                       child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Spacer(
+                            flex: 1,
+                          ),
                           CircleAvatar(
                             radius: 30,
                             backgroundImage: AssetImage(
                               'assets/images/profile.jpg',
                             ),
                           ),
-                          SizedBox(
-                            width: 30,
+                          Spacer(
+                            flex: 6,
                           ),
                           Text(
                             'Book owner name',
@@ -120,6 +123,9 @@ class BookView extends StatelessWidget {
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
+                          ),
+                          Spacer(
+                            flex: 50,
                           ),
                         ],
                       ),

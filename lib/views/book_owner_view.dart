@@ -104,7 +104,7 @@ class BookOwnerProfile extends StatelessWidget {
               ),
               const StarDisplay(
                 value: 4,
-                size: 35,
+                size: 30,
               ),
               const SizedBox(
                 height: 20,
