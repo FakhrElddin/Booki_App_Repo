@@ -48,21 +48,48 @@ class BookView extends StatelessWidget {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Center(
-                    child:
-                    SizedBox(
-                      child: CachedNetworkImage(
+                  Stack(
+                    children: [
+                      CachedNetworkImage(
                         alignment: Alignment.bottomCenter,
                         width: 380,
                         height: 360,
                         fit: BoxFit.cover,
-                        imageUrl: "https://m.media-amazon.com/images/I/518m+S44fdL.jpg",
-                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                            Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
-                        errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
+                        imageUrl:
+                            "https://m.media-amazon.com/images/I/518m+S44fdL.jpg",
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Center(
+                                child: CircularProgressIndicator(
+                                    value: downloadProgress.progress)),
+                        errorWidget: (context, url, error) =>
+                            const Center(child: Icon(Icons.error)),
                       ),
-                    ),
+                      Positioned(
+                        top:
+                            56,
+                        left:
+                           104,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+                            color: Colors.white,
+                          ),
+                          width: 55,
+                          height: 18,// adjust width as needed
+                          child:  const Center(
+                            child: Text('Cover',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const Text(
                     'Book name',
@@ -74,7 +101,12 @@ class BookView extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  const BookDetails(editiondetails: '1999', categorydetails: 'Religious', timeUseddetails: '2 years', pricedetails: '200 L.E', statusdetails: 'Good'),
+                  const BookDetails(
+                      editiondetails: '1999',
+                      categorydetails: 'Religious',
+                      timeUseddetails: '2 years',
+                      pricedetails: '200 L.E',
+                      statusdetails: 'Good'),
                   const SizedBox(
                     height: 20,
                   ),
