@@ -9,20 +9,22 @@ class BookDetails extends StatelessWidget {
    final String pricedetails;
    final String statusdetails;
 
-
    @override
-  Widget build(BuildContext context) {
-    return  Padding(
-      padding: const EdgeInsets.only(left: 25),
-      child: Column(
-        children: [
-          BookAttribute(attribute: 'Edition', description: editiondetails),
-          BookAttribute(attribute: 'Category', description: categorydetails),
-          BookAttribute(attribute: 'TimeUsed', description: timeUseddetails),
-          BookAttribute(attribute: 'Price', description: pricedetails),
-          BookAttribute(attribute: 'Status', description: statusdetails),
-        ],
-      ),
-    );
-  }
+   Widget build(BuildContext context) {
+     return Padding(
+       padding: const EdgeInsets.only(left: 25),
+       child: Column(
+         children: [
+           BookAttribute(attribute: 'Edition', description: editiondetails),
+           BookAttribute(attribute: 'Category', description: categorydetails),
+           BookAttribute(attribute: 'TimeUsed', description: timeUseddetails),
+           BookAttribute(attribute: 'Price', description: pricedetails),
+           BookAttribute(attribute: 'Status', description: statusdetails),
+         ],
+       ),
+     );
+   }
+
+
+
 }

@@ -101,12 +101,22 @@ class BookOwnerInfo extends StatelessWidget {
                 ),
               ),
               Spacer(
-                flex: 15,
+                flex: 20,
               ),
             ],
           ),
           const SizedBox(
             height: 30,
+          ),
+          const BookOwnerReviews(
+            userImage:
+            'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
+            rate: 3,
+          ),
+          const BookOwnerReviews(
+            userImage:
+            'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
+            rate: 3,
           ),
           const BookOwnerReviews(
             userImage:
@@ -117,11 +127,6 @@ class BookOwnerInfo extends StatelessWidget {
             userImage:
             'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
             rate: 4,
-          ),
-          const BookOwnerReviews(
-            userImage:
-            'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
-            rate: 3,
           ),
           const BookOwnerReviews(
             userImage:

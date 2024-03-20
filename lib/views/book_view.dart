@@ -48,25 +48,20 @@ class BookView extends StatelessWidget {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Center(
                     child:
-                    Stack(
-                      children: [
-                        ClipRRect(
-                          child: CachedNetworkImage(
-                            width: 350,
-                            height: 360,
-                            fit: BoxFit.fill,
-                            imageUrl: "https://m.media-amazon.com/images/I/518m+S44fdL.jpg",
-                            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
-                            errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
-                          ),
-                        ),
-                      ],
-
+                    SizedBox(
+                      child: CachedNetworkImage(
+                        alignment: Alignment.bottomCenter,
+                        width: 380,
+                        height: 360,
+                        fit: BoxFit.cover,
+                        imageUrl: "https://m.media-amazon.com/images/I/518m+S44fdL.jpg",
+                        progressIndicatorBuilder: (context, url, downloadProgress) =>
+                            Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                        errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
+                      ),
                     ),
                   ),
                   const Text(
