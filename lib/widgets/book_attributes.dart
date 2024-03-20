@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class BookAttribute extends StatelessWidget {
   const BookAttribute(
       {super.key, required this.attribute, required this.description});
@@ -33,17 +35,27 @@ class BookAttribute extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          width: 5,
+          width: 3,
         ),
-            Text(
-                description,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(
+                color: kPrimaryColor
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 2),
+            child: Text(
+              description,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: kPrimaryColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
               ),
-
-
+            ),
+          ),
+        ),
         const SizedBox(
           height: 40,
         ),

@@ -36,30 +36,39 @@ class BookOwnerReviews extends StatelessWidget {
           const Spacer(
             flex: 1,
           ),
-          Container(
-            height: 60,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Color(0xffEDF0F7)
-            ),
-            child:
-             Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('It was a pleasure to deal with you',
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                    maxLines: 1,
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  height: 65,
+                  //width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: const Color(0xffEDF0F7)
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: StarDisplay(value: rate,size: 15),
-                  )
-                ],
-              ),
+                  child:
+                   Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text('It was a pleasure to deal with you',
+                          style: TextStyle(
+                            fontSize: 15,
+                            height: 1.15,
+                          ),
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 3,),
+                        StarDisplay(value: rate,size: 15)
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const Spacer(
