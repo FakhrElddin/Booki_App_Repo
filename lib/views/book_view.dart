@@ -70,7 +70,7 @@ class BookView extends StatelessWidget {
                         top:
                             56,
                         left:
-                           104,
+                           103,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(18),
