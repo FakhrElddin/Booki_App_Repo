@@ -45,7 +45,7 @@ class BookAttribute extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 2),
             child: Text(
               description,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
