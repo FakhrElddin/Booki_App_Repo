@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:graduation_project/views/book_owner_full_profile_view.dart';
 import 'package:graduation_project/widgets/book_owner_info.dart';
+
+import '../widgets/book_owner_reviews.dart';
 
 class BookOwnerProfile extends StatelessWidget {
   const BookOwnerProfile({super.key});
@@ -28,7 +31,11 @@ class BookOwnerProfile extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return const BookOwnerFullProfileView();
+                }));
+              },
               padding: const EdgeInsetsDirectional.only(end: 8),
               icon: const Icon(
                 Icons.info_outline_rounded,
@@ -38,7 +45,72 @@ class BookOwnerProfile extends StatelessWidget {
             ),
           ],
         ),
-        body: const BookOwnerInfo(),
+        body: const SingleChildScrollView(
+          child: Column(
+            children: [
+              BookOwnerInfo(),
+              const SizedBox(
+                height: 20,
+              ),
+              const Divider(
+                height: 10,
+                thickness: 2.35,
+                color: Colors.grey,
+                indent: 50,
+                endIndent: 50,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Text(
+                    'Comments',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Spacer(
+                    flex: 20,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              BookOwnerReviews(
+                userImage:
+                'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
+                rate: 4,
+              ),
+              BookOwnerReviews(
+                userImage:
+                'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
+                rate: 3,
+              ),
+              BookOwnerReviews(
+                userImage:
+                'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
+                rate: 5,
+              ),
+              BookOwnerReviews(
+                userImage:
+                'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
+                rate: 4,
+              ),
+              BookOwnerReviews(
+                userImage:
+                'https://hips.hearstapps.com/hmg-prod/images/lionel-messi-celebrates-after-their-sides-third-goal-by-news-photo-1686170172.jpg?crop=0.66653xw:1xh;center,top&resize=1200:*',
+                rate: 3,
+              ),
+            ],
+          ),
+        ),
     );
   }
 }
