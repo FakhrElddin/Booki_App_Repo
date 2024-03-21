@@ -62,7 +62,7 @@ class BookOwnerReviews extends StatelessWidget {
                           ),
                           maxLines: 1,
                         ),
-                        SizedBox(height: 3,),
+                        const SizedBox(height: 3,),
                         StarDisplay(value: rate,size: 15)
                       ],
                     ),
