@@ -90,6 +90,7 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
               ),
               const Spacer(),
               FloatingActionButton(
+                heroTag: 'btn1',
                 onPressed: (){
                   if(isFirst){
                     // showAwesomeDialog(
@@ -119,6 +120,7 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
                 width: 16,
               ),
               FloatingActionButton(
+                heroTag: 'btn2',
                 onPressed: (){
                   if(isLast == false){
                     boardingController.nextPage(
