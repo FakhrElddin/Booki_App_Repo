@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +14,25 @@ import 'package:graduation_project/views/reset_password_view.dart';
 import 'package:graduation_project/widgets/custom_text_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class VerifyCodeView extends StatelessWidget {
+class VerifyCodeView extends StatefulWidget {
   const VerifyCodeView({super.key, required this.email, this.isRegister = false});
 
   final String email;
   final bool isRegister;
-  static StreamController<ErrorAnimationType> errorController = StreamController();
-  static TextEditingController codeController = TextEditingController();
+
+  @override
+  State<VerifyCodeView> createState() => _VerifyCodeViewState();
+}
+
+class _VerifyCodeViewState extends State<VerifyCodeView> {
+  //static StreamController<ErrorAnimationType> errorController = StreamController();
+  TextEditingController codeController = TextEditingController();
+
+  @override
+  void dispose() {
+    codeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +46,7 @@ class VerifyCodeView extends StatelessWidget {
     if(state is ForgotPasswordReceiveCodeSuccessState){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
         return ResetPasswordView(
-          email: email,
+          email: widget.email,
           resetCode: codeController.text,
         );
       }));
@@ -152,7 +163,7 @@ class VerifyCodeView extends StatelessWidget {
                       animationDuration: const Duration(milliseconds: 300),
                       enableActiveFill: true,
                       keyboardType: TextInputType.number,
-                      errorAnimationController: errorController,
+                      //errorAnimationController: errorController,
                       controller: codeController,
                       validator: (value){
                         if(value?.isEmpty ?? true){
@@ -185,16 +196,18 @@ class VerifyCodeView extends StatelessWidget {
                                   state: ToastStates.ERROR,
                               );
                             } else{
-                              if(isRegister){
+                              if(widget.isRegister){
                                 BlocProvider.of<RegisterCubit>(context).registerUser(
-                                  email: email,
+                                  email: widget.email,
                                   code: codeController.text,
                                 );
+                                forgotPasswordCubit.verifyCodeFormKey.currentState?.reset();
                               } else{
                                 forgotPasswordCubit.receiveCodeFromUser(
-                                  email: email,
+                                  email: widget.email,
                                   resetCode: codeController.text,
                                 );
+                                forgotPasswordCubit.verifyCodeFormKey.currentState?.reset();
                               }
                             }
                           } else{
@@ -210,6 +223,7 @@ class VerifyCodeView extends StatelessWidget {
                     TextButton(
                       onPressed: (){
                         Navigator.pop(context);
+                        forgotPasswordCubit.verifyCodeFormKey.currentState?.reset();
                       },
                       child: const Text(
                         'Enter another email?',

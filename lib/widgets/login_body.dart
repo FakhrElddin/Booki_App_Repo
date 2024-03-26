@@ -123,6 +123,7 @@ class LoginBody extends StatelessWidget {
                                   email: emailController.text,
                                   password: passwordController.text,
                                 );
+                                loginCubit.formKey.currentState?.reset();
                               } else{
                                 loginCubit.changeAutoValidateMode();
                               }
@@ -138,6 +139,7 @@ class LoginBody extends StatelessWidget {
                                 context, MaterialPageRoute(builder: (context) {
                               return const ForgotPasswordView();
                             }));
+                            loginCubit.formKey.currentState?.reset();
                           },
                           child: const Text(
                             'Forget password?',
@@ -183,6 +185,7 @@ class LoginBody extends StatelessWidget {
                                     MaterialPageRoute(builder: (context) {
                                       return const RegisterView();
                                     }));
+                                loginCubit.formKey.currentState?.reset();
                               },
                               child: const Text(
                                 'sign up',

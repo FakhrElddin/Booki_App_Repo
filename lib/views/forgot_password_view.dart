@@ -14,7 +14,6 @@ class ForgotPasswordView extends StatelessWidget {
   const ForgotPasswordView({super.key});
 
   static TextEditingController emailController = TextEditingController();
-  static TextEditingController codeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,6 @@ class ForgotPasswordView extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context){
               return VerifyCodeView(email: emailController.text,);
             }));
-            emailController.clear();
           }
           if(state is ForgotPasswordSendCodeFailureState){
             showToastMessage(
@@ -137,6 +135,7 @@ class ForgotPasswordView extends StatelessWidget {
                                   forgotPasswordCubit.sendCodeToUser(
                                     email: emailController.text,
                                   );
+                                  forgotPasswordCubit.forgotPasswordFormKey.currentState?.reset();
                                 } else{
                                   forgotPasswordCubit.forgotPasswordChangeAutoValidateMode();
                                 }
@@ -150,6 +149,7 @@ class ForgotPasswordView extends StatelessWidget {
                           TextButton(
                             onPressed: (){
                               Navigator.pop(context);
+                              forgotPasswordCubit.forgotPasswordFormKey.currentState?.reset();
                             },
                             child: const Text(
                               'Back to login?',
