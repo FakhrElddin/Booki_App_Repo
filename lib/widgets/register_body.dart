@@ -174,6 +174,7 @@ class RegisterBody extends StatelessWidget {
                             password: passwordController.text,
                             confirmPassword: confirmPasswordController.text,
                           );
+                          registerCubit.formKey.currentState?.reset();
                         } else{
                           registerCubit.changeAutoValidateMode();
                         }
@@ -196,6 +197,7 @@ class RegisterBody extends StatelessWidget {
                             password: passwordController.text,
                             confirmPassword: confirmPasswordController.text,
                           );
+                          registerCubit.formKey.currentState?.reset();
                         } else{
                           registerCubit.changeAutoValidateMode();
                         }
@@ -219,6 +221,7 @@ class RegisterBody extends StatelessWidget {
                       TextButton(
                         onPressed: (){
                           Navigator.pop(context);
+                          registerCubit.formKey.currentState?.reset();
                         },
                         child: const Text(
                           'Login Now',
