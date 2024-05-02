@@ -48,11 +48,6 @@ class BookOwnerFullProfileView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Text('Address:',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
                   Text(' 1 Hassan El Maamoun St., 6th Zone, Nasr city, Cairo',
                     maxLines: 2,
                     style: TextStyle(
@@ -62,7 +57,32 @@ class BookOwnerFullProfileView extends StatelessWidget {
                 ],
               ),
             ),
-
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Text(' 1 Hassan El Maamoun St., 6th Zone, Nasr city, Cairo',
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Text(' 1 Hassan El Maamoun St., 6th Zone, Nasr city, Cairo',
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
         ),
       ),
