@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/widgets/book_owner_info.dart';
 
 class BookOwnerFullProfileView extends StatelessWidget {
   const BookOwnerFullProfileView({super.key});
@@ -37,75 +36,151 @@ class BookOwnerFullProfileView extends StatelessWidget {
               ),
             ],
           ),
-      body: const SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Text('Address:',
+      body:  SingleChildScrollView(
+        child: Padding(
+          padding:  const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height:
+                40,
+              ),
+              const Text('Full Name',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+              ),
+              ),
+              const SizedBox(
+                height:
+                10,
+              ),
+              Container(
+                height: 60,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(6)
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text("Mo'men Ali Ibrahim",
                     style: TextStyle(
                       fontSize: 20,
+                    fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text(' 1 Hassan El Maamoun St., 6th Zone, Nasr city, Cairo',
-                    maxLines: 2,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Text('Address:',
+              const SizedBox(
+                height:
+                20,
+              ),
+              const Text('Contact number',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(
+                height:
+                10,
+              ),
+              Container(
+                height: 60,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(6)
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text("(+20)1027928685",
                     style: TextStyle(
                       fontSize: 20,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text(' 1 Hassan El Maamoun St., 6th Zone, Nasr city, Cairo',
-                    maxLines: 2,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Text('Address:',
+              const SizedBox(
+                height:
+                20,
+              ),
+              const Text('ID number',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(
+                height:
+                10,
+              ),
+              Container(
+                height: 60,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(6)
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text("30212212358798",
                     style: TextStyle(
                       fontSize: 20,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text(' 1 Hassan El Maamoun St., 6th Zone, Nasr city, Cairo',
-                    maxLines: 2,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-
-
-          ],
+              const SizedBox(
+                height:
+                20,
+              ),
+              const Text('Address',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(
+                height:
+                10,
+              ),
+              Container(
+                height: 100,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(6)
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text("Robert Robertson, 1234 NW Bobcat Lane, St. Robert, MO 65584-5678",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    maxLines: 2,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
