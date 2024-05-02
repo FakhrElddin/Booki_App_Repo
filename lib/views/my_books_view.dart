@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/views/add_book_view.dart';
 import 'package:graduation_project/widgets/book_item.dart';
 import 'package:graduation_project/widgets/my_books_item.dart';
 
@@ -12,7 +13,13 @@ class MyBooksView extends StatelessWidget {
         width: 70,
         height: 70,
         child: FloatingActionButton(
-          onPressed: (){},
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return const AddBookView();
+            },
+            ),
+            );
+          },
           child: const Icon(
             Icons.add,
             size: 32,
