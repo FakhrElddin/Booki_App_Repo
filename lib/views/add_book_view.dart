@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/widgets/add_book_photo_item.dart';
 import 'package:graduation_project/widgets/custom_text_form_field.dart';
 
 class AddBookView extends StatelessWidget {
@@ -35,93 +36,27 @@ class AddBookView extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Column(
-                    children: [
-                      Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Container(
-                            height: 200,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[400],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          Icon(
-                            Icons.add,
-                            size: 32,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        'cover',
-                      ),
-                    ],
+                  child: AddBookPhotoItem(
+                    photoName: 'Cover',
+                    onTap: (){},
                   ),
                 ),
                 const SizedBox(
                   width: 12,
                 ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Container(
-                            height: 200,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[400],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          const Icon(
-                            Icons.add,
-                            size: 32,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        'stub',
-                      ),
-                    ],
+                  child: AddBookPhotoItem(
+                    photoName: 'Stub',
+                    onTap: (){},
                   ),
                 ),
                 const SizedBox(
                   width: 12,
                 ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Container(
-                            height: 200,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[400],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          Icon(
-                            Icons.add,
-                            size: 32,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        'printing',
-                      ),
-                    ],
+                  child: AddBookPhotoItem(
+                    photoName: 'Printing',
+                    onTap: (){},
                   ),
                 ),
               ],
