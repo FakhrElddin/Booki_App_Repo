@@ -9,7 +9,7 @@ class BookOwnerFullProfileView extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: const Text(
-              'Full Profile',
+              'Full profile',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class BookOwnerFullProfileView extends StatelessWidget {
                 height:
                 40,
               ),
-              const Text('Full Name',
+              const Text('Full name',
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.grey,
@@ -148,7 +148,7 @@ class BookOwnerFullProfileView extends StatelessWidget {
                 height:
                 20,
               ),
-              const Text("City/region",
+              const Text("City/Region",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
@@ -182,7 +182,7 @@ class BookOwnerFullProfileView extends StatelessWidget {
                 height:
                 20,
               ),
-              const Text('Address',
+              const Text('Full address',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
