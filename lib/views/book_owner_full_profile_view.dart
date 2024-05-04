@@ -9,7 +9,7 @@ class BookOwnerFullProfileView extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: const Text(
-              'Full Profile',
+              'Full profile',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class BookOwnerFullProfileView extends StatelessWidget {
                 height:
                 40,
               ),
-              const Text('Full Name',
+              const Text('Full name',
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.grey,
@@ -148,7 +148,41 @@ class BookOwnerFullProfileView extends StatelessWidget {
                 height:
                 20,
               ),
-              const Text('Address',
+              const Text("City/Region",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(
+                height:
+                10,
+              ),
+              Container(
+                height: 60,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(6)
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text("Cairo",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height:
+                20,
+              ),
+              const Text('Full address',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
