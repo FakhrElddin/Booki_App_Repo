@@ -40,6 +40,7 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   pin_code_fields: ^8.0.1
   custom_radio_grouped_button: ^2.2.1
+  rive: 0.13.2
   flutter:
     sdk: flutter
 
@@ -47,6 +48,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
