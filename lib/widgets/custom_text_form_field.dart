@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/constants.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({super.key, this.hintText, this.suffixIcon, this.labelText, this.textInputType, this.isPassword = false, this.onFieldSubmitted, this.validator, this.textInputAction, this.onChanged, this.controller, this.readOnly = false});
+  const CustomTextFormField({super.key, this.hintText, this.suffixIcon, this.labelText, this.textInputType, this.isPassword = false, this.onFieldSubmitted, this.validator, this.textInputAction, this.onChanged, this.controller, this.readOnly = false, this.filledColor, this.fillColor, this.hintFontSize});
 
   final String? hintText;
   final Widget? suffixIcon;
@@ -15,6 +15,9 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final TextEditingController? controller;
   final bool? readOnly;
+  final bool? filledColor;
+  final Color? fillColor;
+  final double? hintFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +34,13 @@ class CustomTextFormField extends StatelessWidget {
         labelText: labelText,
         hintText: hintText,
         suffixIcon: suffixIcon,
+        fillColor: fillColor,
+        filled: filledColor,
         labelStyle: const TextStyle(
           color: Colors.black,
+        ),
+        hintStyle: TextStyle(
+          fontSize: hintFontSize,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
