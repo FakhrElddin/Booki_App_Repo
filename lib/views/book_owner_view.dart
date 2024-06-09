@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:graduation_project/views/book_owner_full_profile_view.dart';
 import 'package:graduation_project/widgets/book_owner_info.dart';
-
 import '../widgets/book_owner_reviews.dart';
 
 class BookOwnerProfile extends StatelessWidget {

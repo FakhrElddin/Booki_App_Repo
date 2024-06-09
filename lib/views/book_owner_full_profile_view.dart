@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/widgets/book_owner_full_profile_body.dart';
 
 class BookOwnerFullProfileView extends StatelessWidget {
   const BookOwnerFullProfileView({super.key});
@@ -36,7 +37,7 @@ class BookOwnerFullProfileView extends StatelessWidget {
               ),
             ],
           ),
-      body:  const BookOwnerFullProfileView(),
+      body:  const BookOwnerFullProfileBody(),
     );
   }
 }

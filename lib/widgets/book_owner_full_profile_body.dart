@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-class BookOwnerFullInfo extends StatelessWidget {
-  const BookOwnerFullInfo({super.key});
+class BookOwnerFullProfileBody extends StatelessWidget {
+  const BookOwnerFullProfileBody({super.key});
 
   @override
   Widget build(BuildContext context) {
