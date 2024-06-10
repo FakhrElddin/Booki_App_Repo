@@ -39,29 +39,13 @@ class BookOwnerInfo extends StatelessWidget {
             height: 40,
           ),
           const Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(
-                flex: 1,
-              ),
-              Text(
-                "Cairo",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Spacer(
-                flex: 4,
-              ),
               Text(
                 "Book Owner Name",
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                 ),
-              ),
-              Spacer(
-                flex: 8,
               ),
             ],
           ),

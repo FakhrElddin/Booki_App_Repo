@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/views/confirm_order.dart';
 import '../constants.dart';
 import '../views/book_owner_view.dart';
 import '../views/confirm_exchange.dart';
@@ -115,7 +116,7 @@ class BookViewItem extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return  Carousel();
+                          return  ConfirmOrder();
                         }));
                   },
                   child: const Text(
