@@ -3,9 +3,17 @@ import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/widgets/add_book_photo_item.dart';
 import 'package:graduation_project/widgets/custom_text_form_field.dart';
 
-class AddBookView extends StatelessWidget {
+class AddBookView extends StatefulWidget {
   const AddBookView({super.key});
 
+  @override
+  State<AddBookView> createState() => _AddBookViewState();
+}
+
+class _AddBookViewState extends State<AddBookView> {
+  String? categoryValue;
+  String? stateValue;
+  bool? checkBoxValue = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,30 +101,10 @@ class AddBookView extends StatelessWidget {
                           child: CustomTextFormField(
                             hintFontSize: 12,
                             hintText: '200 EGP',
-                            labelText: 'price',
+                            labelText: 'Price',
                             filledColor: true,
                             fillColor: Colors.grey[200],
                             textInputType: TextInputType.number,
-                            suffixIcon: Column(
-                              children: [
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: (){},
-                                  icon: const Icon(
-                                    Icons.arrow_drop_up,
-                                  ),
-                                ),
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: (){},
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
                         ),
                         const SizedBox(
@@ -127,30 +115,10 @@ class AddBookView extends StatelessWidget {
                           child: CustomTextFormField(
                             hintFontSize: 12,
                             hintText: '2 years',
-                            labelText: 'used time',
+                            labelText: 'Used Time',
                             filledColor: true,
                             fillColor: Colors.grey[200],
                             textInputType: TextInputType.number,
-                            suffixIcon: Column(
-                              children: [
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: (){},
-                                  icon: const Icon(
-                                    Icons.arrow_drop_up,
-                                  ),
-                                ),
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: (){},
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
                         ),
                         const SizedBox(
@@ -161,30 +129,10 @@ class AddBookView extends StatelessWidget {
                           child: CustomTextFormField(
                             hintFontSize: 12,
                             hintText: '1990',
-                            labelText: 'edition',
+                            labelText: 'Edition',
                             filledColor: true,
                             fillColor: Colors.grey[200],
                             textInputType: TextInputType.number,
-                            suffixIcon: Column(
-                              children: [
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: (){},
-                                  icon: const Icon(
-                                    Icons.arrow_drop_up,
-                                  ),
-                                ),
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: (){},
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
                         ),
                       ],
@@ -192,42 +140,112 @@ class AddBookView extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            const Text(
-                              'Book',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            Transform.scale(
-                              scale: 1.4,
-                              child: Checkbox(
-                                value: true,
-                                onChanged: (value){},
-                              ),
-                            ),
-                          ],
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.grey[200],
+                      ),
+                      child: DropdownButton(
+                        borderRadius: BorderRadius.circular(10),
+                        value: categoryValue,
+                        isExpanded: true,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        icon: const Icon(
+                            Icons.arrow_drop_down,
                         ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Novel',
-                              style: TextStyle(
-                                fontSize: 16,
+                        hint: const Text('Category'),
+
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'general',
+                            child: Text('General',),
+                          ),
+                          DropdownMenuItem(
+                            value: 'sports',
+                            child: Text('Sports',),
+                          ),
+                          DropdownMenuItem(
+                            value: 'history',
+                            child: Text('History',),
+                          ),
+                        ],
+                        onChanged: (value){
+                          setState(() {
+                            categoryValue = value;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Transform.scale(
+                                scale: 1.4,
+                                child: Checkbox(
+                                    value: checkBoxValue,
+                                  onChanged: (value){
+                                      setState(() {
+                                        checkBoxValue = value;
+                                      });
+                                  },
+                                ),
                               ),
-                            ),
-                            Transform.scale(
-                              scale: 1.4,
-                              child: Checkbox(
-                                value: false,
-                                onChanged: (value){},
+                              const Text(
+                                'Negotiable',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey[200],
                             ),
-                          ],
+                            child: DropdownButton(
+                              borderRadius: BorderRadius.circular(10),
+                              value: stateValue,
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                              icon: const Icon(
+                                Icons.arrow_drop_down,
+                              ),
+                              hint: const Text('State'),
+                              isExpanded: true,
+                              items: const [
+                                DropdownMenuItem(
+                                  value: 'bad',
+                                  child: Text('Bad',),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'accepted',
+                                  child: Text('Accepted',),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'good',
+                                  child: Text('Good',),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'excellent',
+                                  child: Text('Excellent',),
+                                ),
+                              ],
+                              onChanged: (value){
+                                setState(() {
+                                  stateValue = value;
+                                });
+                              },
+                            ),
+                          ),
                         ),
                       ],
                     ),
