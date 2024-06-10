@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/views/update_user_info.dart';
-
 import '../constants.dart';
 import '../widgets/book_owner_full_profile_body.dart';
 import '../widgets/book_owner_info.dart';
+import 'login_view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -75,7 +75,7 @@ class ProfileView extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return const UpdateUserInfo();
+                          return const LoginView();
                         }));
                   },
                   child: const Text(
