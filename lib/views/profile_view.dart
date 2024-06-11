@@ -6,8 +6,8 @@ import '../widgets/book_owner_info.dart';
 import 'login_view.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
-
+  const ProfileView({super.key, required this.model});
+final UserInfoModel model;
   @override
   Widget build(BuildContext context) {
     return  Column(
@@ -89,4 +89,14 @@ class ProfileView extends StatelessWidget {
       ],
     );
   }
+}
+class UserInfoModel{
+  final String name;
+  final String full_name;
+  final String number;
+  final String city;
+  int? id;
+  final String address;
+
+  UserInfoModel({required this.name, required this.full_name, required this.number, required this.city, required this.address});
 }
