@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/widgets/book_view_item.dart';
+import 'package:graduation_project/widgets/book_view_body.dart';
 
 
 class BookView extends StatelessWidget {
@@ -38,7 +38,7 @@ class BookView extends StatelessWidget {
           ),
         ],
       ),
-      body: BookViewItem(),
+      body: BookViewBody(),
     );
   }
 }

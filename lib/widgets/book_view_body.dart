@@ -1,13 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/views/confirm_order.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../constants.dart';
 import '../views/book_owner_view.dart';
 import '../views/confirm_exchange.dart';
 import 'book_details.dart';
-import 'image_carousel.dart';
-class BookViewItem extends StatelessWidget {
-  const BookViewItem({super.key});
+
+
+class BookViewBody extends StatefulWidget {
+  const BookViewBody({super.key});
+
+  @override
+  State<BookViewBody> createState() => _BookViewBodyState();
+}
+
+class _BookViewBodyState extends State<BookViewBody> {
+
+  PageController bookImagesController = PageController();
+  String imageName = 'Cover';
+  final List<String> bookImage = const [
+    'https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWhh8NZkGr5dMPDBFke865glqUt_iqGME6zg&usqp=CAU',
+    'https://americanbookco.com/wp-content/uploads/2021/02/stacked-books.jpeg',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +35,87 @@ class BookViewItem extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Carousel(),
+                const SizedBox(
+                  height: 24,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SizedBox(
+                    height: 300,
+                    child: PageView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: bookImagesController,
+                      onPageChanged: (index) {
+                        if(index == 0){
+                         setState(() {
+                           imageName = 'Cover';
+                         });
+                        }
+                        else if(index == 1){
+                          setState(() {
+                            imageName = 'Printing';
+                          });
+                        }
+                        else{
+                          setState(() {
+                            imageName = 'Stub';
+                          });
+                        }
+                      },
+                      itemBuilder: (context, index) => Center(
+                        child: Stack(
+                          alignment: Alignment.topLeft,
+                          children: [
+                            Image.network(
+                              bookImage[index],
+                              //width: 200,
+                              height: 300,
+                              fit: BoxFit.fill,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0,
+                                    horizontal: 8.0,
+                                  ),
+                                  child: Text(
+                                    imageName,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: kPrimaryColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      itemCount: bookImage.length,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                SmoothPageIndicator(
+                  controller: bookImagesController,
+                  count: bookImage.length,
+                  effect: const ExpandingDotsEffect(
+                    activeDotColor: kPrimaryColor,
+                    dotWidth: 10,
+                    dotHeight: 10,
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
                 const Text(
                   'Book name',
                   style: TextStyle(
