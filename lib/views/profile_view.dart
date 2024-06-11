@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/local/cache_helper.dart';
 import 'package:graduation_project/views/update_user_info.dart';
 import '../constants.dart';
 import '../widgets/book_owner_full_profile_body.dart';
@@ -6,8 +7,8 @@ import '../widgets/book_owner_info.dart';
 import 'login_view.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({super.key, required this.model});
-final UserInfoModel model;
+  const ProfileView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return  Column(
@@ -73,10 +74,10 @@ final UserInfoModel model;
                     foregroundColor: Colors.black,
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                          return const LoginView();
-                        }));
+                    CacheHelper.removeData(key: 'token');
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                      return const LoginView();
+                    },),);
                   },
                   child: const Text(
                     'log out',
