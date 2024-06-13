@@ -1,22 +1,12 @@
-import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
 import 'package:graduation_project/widgets/book_item.dart';
-import 'package:graduation_project/widgets/grid_view_item.dart';
+import 'package:graduation_project/widgets/category_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
-  final List<String> buttons = const [
-    'General',
-    'Sports',
-    'Business',
-    'Science',
-    'Fiction',
-    'Historical',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,47 +44,38 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  child: CustomRadioButton(
-                    margin: const EdgeInsetsDirectional.only(end: 16),
-                    elevation: 0,
-                    height: 40,
-                    shapeRadius: 5,
-                    autoWidth: true,
-                    enableShape: true,
-                    selectedBorderColor: kPrimaryColor,
-                    unSelectedBorderColor: kPrimaryColor,
-                    unSelectedColor: Colors.white,
-                    buttonLables: buttons,
-                    buttonValues: buttons,
-                    defaultSelected: buttons[0],
-                    buttonTextStyle: const ButtonTextStyle(
-                        selectedColor: Colors.white,
-                        unSelectedColor: kPrimaryColor,
-                        textStyle: TextStyle(fontSize: 16)),
-                    radioButtonValue: (value) {
-                      print(value);
-                    },
-                    selectedColor: kPrimaryColor,
-                  ),
+                const Text(
+                  'Categories',
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 8,
+                ),
+                SizedBox(
+                  height: 120,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) => const CategoryCard(),
+                    separatorBuilder: (context, index) => const SizedBox(width: 16,),
+                    itemCount: 10,
+                  ),
+                ),
+                //
+                const SizedBox(
+                  height: 30,
                 ),
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    childAspectRatio: .49,
+                    childAspectRatio: 1 / 2.15,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
                   ),
-                  itemBuilder: (context, index) => const GridViewItem(),
+                  itemBuilder: (context, index) => const BookItem(),
                   itemCount: 20,
                 ),
               ],
