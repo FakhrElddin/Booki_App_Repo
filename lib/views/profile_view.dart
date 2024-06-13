@@ -11,82 +11,166 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
-        const Expanded(
+        Expanded(
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BookOwnerInfo(),
                 BookOwnerFullProfileBody(),
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          backgroundColor: kPrimaryColor,
+                          fixedSize: const Size(360, 60),
+                        ),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                                return const UpdateUserInfo();
+                              }));
+                        },
+                        child: const Text(
+                          'Update profile',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          backgroundColor: const Color(0xffE2E7F0),
+                          fixedSize: const Size(360, 60),
+                          foregroundColor: Colors.black,
+                        ),
+                        onPressed: () {
+                          CacheHelper.removeData(key: 'token');
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const LoginView();
+                              },
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'log out',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          backgroundColor:  Colors.red,
+                          fixedSize: const Size(360, 60),
+                          foregroundColor: Colors.black,
+                        ),
+                        onPressed: () {
+                          CacheHelper.removeData(key: 'token');
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const LoginView();
+                              },
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Delete account',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
               ],
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-            bottom: 20,
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    textStyle: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    backgroundColor: kPrimaryColor,
-                    fixedSize: const Size(220, 60),
-                  ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                         return const UpdateUserInfo();
-                        }));
-                  },
-                  child: const Text(
-                    'Update profile',
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Expanded(
-                flex: 1,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    textStyle: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    backgroundColor: const Color(0xffE2E7F0),
-                    fixedSize: const Size(140, 60),
-                    foregroundColor: Colors.black,
-                  ),
-                  onPressed: () {
-                    CacheHelper.removeData(key: 'token');
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                      return const LoginView();
-                    },),);
-                  },
-                  child: const Text(
-                    'log out',
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(
+        //     left: 16,
+        //     right: 16,
+        //     bottom: 20,
+        //   ),
+        //   child: Row(
+        //     children: [
+        //       Expanded(
+        //         flex: 2,
+        //         child: ElevatedButton(
+        //           style: ElevatedButton.styleFrom(
+        //             textStyle: const TextStyle(
+        //               fontSize: 20,
+        //               fontWeight: FontWeight.w500,
+        //             ),
+        //             backgroundColor: kPrimaryColor,
+        //             fixedSize: const Size(220, 60),
+        //           ),
+        //           onPressed: () {
+        //             Navigator.push(context,
+        //                 MaterialPageRoute(builder: (context) {
+        //                  return const UpdateUserInfo();
+        //                 }));
+        //           },
+        //           child: const Text(
+        //             'Update profile',
+        //           ),
+        //         ),
+        //       ),
+        //       const SizedBox(
+        //         width: 12,
+        //       ),
+        //       Expanded(
+        //         flex: 1,
+        //         child: ElevatedButton(
+        //           style: ElevatedButton.styleFrom(
+        //             textStyle: const TextStyle(
+        //               fontSize: 20,
+        //               fontWeight: FontWeight.w500,
+        //             ),
+        //             backgroundColor: const Color(0xffE2E7F0),
+        //             fixedSize: const Size(140, 60),
+        //             foregroundColor: Colors.black,
+        //           ),
+        //           onPressed: () {
+        //             CacheHelper.removeData(key: 'token');
+        //             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+        //               return const LoginView();
+        //             },),);
+        //           },
+        //           child: const Text(
+        //             'log out',
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }
