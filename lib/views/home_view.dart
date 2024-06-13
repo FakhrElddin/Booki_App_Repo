@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
 import 'package:graduation_project/widgets/book_item.dart';
 import 'package:graduation_project/widgets/category_card.dart';
-import 'package:graduation_project/widgets/grid_view_item.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -65,7 +64,7 @@ class HomeView extends StatelessWidget {
                 ),
                 //
                 const SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 GridView.builder(
                   shrinkWrap: true,
