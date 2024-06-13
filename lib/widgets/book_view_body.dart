@@ -154,29 +154,35 @@ class _BookViewBodyState extends State<BookViewBody> {
                             return const BookOwnerProfile();
                           }));
                     },
-                    child: const Row(
+                    child:  Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Spacer(
+                        const Spacer(
                           flex: 1,
                         ),
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage: AssetImage(
-                            'assets/images/profile.jpg',
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: CachedNetworkImage(
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                            imageUrl: "https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg",
+                            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                            errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
                           ),
                         ),
-                        Spacer(
-                          flex: 6,
+                        const Spacer(
+                          flex: 10,
                         ),
-                        Text(
+                        const Text(
                           'Book owner name',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        Spacer(
+                        const Spacer(
                           flex: 50,
                         ),
                       ],
@@ -212,7 +218,7 @@ class _BookViewBodyState extends State<BookViewBody> {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return  ConfirmOrder();
+                          return  const ConfirmOrder();
                         }));
                   },
                   child: const Text(
