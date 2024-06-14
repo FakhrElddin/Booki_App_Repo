@@ -17,11 +17,7 @@ class AppCubit extends Cubit<AppState> {
       Response response = await DioHelper.getData(url: CATEGORIES);
       categoryModel = CategoryModel.fromJson(response.data);
       emit(AppGetCategoriesSuccessState());
-      print(categoryModel!.data[0].image);
-      print('hello world');
-
     } catch (e) {
-      print('get category error : ${e.toString()}');
       emit(AppGetCategoriesFailureState(errorMessage: e.toString()));
     }
   }
