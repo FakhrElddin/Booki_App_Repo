@@ -12,3 +12,5 @@ const VERIFY_RESET_CODE = 'api/v1/auth/verifyResetCode';
 const RESET_PASSWORD = 'api/v1/auth/resetPassword';
 
 const VERIFY_OTP = 'api/v1/auth/verifyOTP';
+
+const CATEGORIES = '/api/v1/categories';
