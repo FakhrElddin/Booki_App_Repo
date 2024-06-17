@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'book_owner_info.dart';
 class BookOwnerFullProfileBody extends StatelessWidget {
   const BookOwnerFullProfileBody({super.key});
 
@@ -10,10 +12,7 @@ class BookOwnerFullProfileBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height:
-              40,
-            ),
+            BookOwnerInfo(),
             const Text('Email',
               style: TextStyle(
                 fontSize: 20,
@@ -82,6 +81,40 @@ class BookOwnerFullProfileBody extends StatelessWidget {
               height:
               20,
             ),
+            const Text("Card ID",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+              ),
+            ),
+            const SizedBox(
+              height:
+              10,
+            ),
+            Container(
+              height: 60,
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(6)
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(16),
+                child: Text("12345678901234",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height:
+              20,
+            ),
             const Text("City/Region",
               style: TextStyle(
                 fontSize: 20,
@@ -104,13 +137,17 @@ class BookOwnerFullProfileBody extends StatelessWidget {
               ),
               child: const Padding(
                 padding: EdgeInsets.all(16),
-                child: Text("Cairo",
+                child: Text("Fayoum",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
+            ),
+            const SizedBox(
+              height:
+              20,
             ),
           ],
         ),
