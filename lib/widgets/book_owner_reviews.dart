@@ -5,7 +5,7 @@ import 'package:graduation_project/widgets/star_display_item.dart';
 class BookOwnerReviews extends StatelessWidget {
    const BookOwnerReviews({super.key, required this.userImage, required this.rate});
    final String userImage;
-   final double rate;
+   final int rate;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,8 @@ class BookOwnerReviews extends StatelessWidget {
                           ),
                           maxLines: 1,
                         ),
-                        const SizedBox(height: 3,),
+                        const SizedBox(height: 3,
+                        ),
                         StarDisplay(value: rate,size: 15)
                       ],
                     ),

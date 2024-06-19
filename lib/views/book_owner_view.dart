@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/views/book_owner_full_profile_view.dart';
-import 'package:graduation_project/widgets/book_owner_info.dart';
+import 'package:graduation_project/widgets/book_owner_body.dart';
 import '../widgets/book_owner_reviews.dart';
 
 class BookOwnerProfile extends StatelessWidget {
@@ -30,9 +29,9 @@ class BookOwnerProfile extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return const BookOwnerFullProfileView();
-                }));
+                // Navigator.push(context, MaterialPageRoute(builder: (context){
+                //   return const BookOwnerFullProfileView();
+                // }));
               },
               padding: const EdgeInsetsDirectional.only(end: 8),
               icon: const Icon(
@@ -46,7 +45,7 @@ class BookOwnerProfile extends StatelessWidget {
         body: const SingleChildScrollView(
           child: Column(
             children: [
-              BookOwnerInfo(),
+              BookOwnerBody(),
               const SizedBox(
                 height: 20,
               ),

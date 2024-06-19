@@ -5,7 +5,8 @@ class UserModel {
   final String email;
   final String? cardId;
   final String? profileImage;
-  final int? ratingsAverage;
+  final dynamic ratingsAverage;
+  final String? city;
 
   UserModel({
     required this.name,
@@ -13,6 +14,7 @@ class UserModel {
     this.cardId,
     this.profileImage,
     this.ratingsAverage,
+    this.city,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class UserModel {
       cardId: json['cardId'],
       profileImage: json['profileImage'],
       ratingsAverage: json['ratingsAverage'],
+      city: json['city'],
     );
   }
 }
