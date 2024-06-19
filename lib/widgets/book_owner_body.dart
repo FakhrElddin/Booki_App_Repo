@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/widgets/star_display_item.dart';
 
 
-class BookOwnerInfo extends StatelessWidget {
-  const BookOwnerInfo({super.key});
+class BookOwnerBody extends StatelessWidget {
+  const BookOwnerBody({super.key});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
