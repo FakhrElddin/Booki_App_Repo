@@ -183,14 +183,15 @@ class AppCubit extends Cubit<AppState> {
 
   UserBooksModel? userBooksModel;
   void getUserBooks() async{
+    emit(AppGetUserBooksLoadingState());
     try {
       Response response = await DioHelper.getData(
             url: '/api/v1/user/$userId/books',
           );
       userBooksModel = UserBooksModel.fromJson(response.data);
-      print(userBooksModel!.data[0].images);
+      emit(AppGetUserBooksSuccessState());
     } catch (e) {
-      print(e);
+      emit(AppGetUserBooksFailureState(errorMessage: 'There was an error'));
     }
   }
 }
