@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/constants.dart';
+import 'package:graduation_project/models/user_books_model.dart';
 
 class MyBooksItem extends StatelessWidget {
-  const MyBooksItem({super.key});
+  const MyBooksItem({super.key, required this.userBooksDataModel});
+
+  final UserBooksDataModel userBooksDataModel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class MyBooksItem extends StatelessWidget {
                   width: 120,
                   height: 160,
                   fit: BoxFit.cover,
-                  imageUrl: "https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
+                  imageUrl: userBooksDataModel.coverImage,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
                   errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
@@ -66,7 +69,7 @@ class MyBooksItem extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  'I Have Something to Tell You',
+                  userBooksDataModel.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -88,7 +91,7 @@ class MyBooksItem extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Text(
-                          'general',
+                          userBooksDataModel.category.name,
                           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: kPrimaryColor,
                             fontWeight: FontWeight.normal,
@@ -98,7 +101,7 @@ class MyBooksItem extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      '200 EGP',
+                      '${userBooksDataModel.price} EGP',
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 20,
                       ),

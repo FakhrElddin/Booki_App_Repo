@@ -18,20 +18,26 @@ class RegisterModel{
 
 
 class RegisterDataModel{
+  final String id;
   final String name;
   final String email;
+  final String city;
   final bool active;
 
   RegisterDataModel({
+    required this.id,
     required this.name,
     required this.email,
+    required this.city,
     required this.active,
 });
 
   factory RegisterDataModel.formJson(Map<String, dynamic> json){
     return RegisterDataModel(
+      id: json['_id'],
       name: json['name'],
       email: json['email'],
+      city: json['city'],
       active: json['active'],
     );
   }

@@ -41,6 +41,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   custom_radio_grouped_button: ^2.2.1
   rive: 0.13.2
+  image_picker: ^1.0.8
   flutter:
     sdk: flutter
 

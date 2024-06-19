@@ -14,3 +14,47 @@ class AppGetCategoriesFailureState extends AppState {
   AppGetCategoriesFailureState({required this.errorMessage});
 }
 
+class AppGetBookCoverImageSuccessState extends AppState {}
+
+class AppGetBookCoverImageFailureState extends AppState {
+  final String errorMessage;
+  AppGetBookCoverImageFailureState({required this.errorMessage});
+}
+
+class AppGetBookStubImageSuccessState extends AppState {}
+
+class AppGetBookStubImageFailureState extends AppState {
+  final String errorMessage;
+  AppGetBookStubImageFailureState({required this.errorMessage});
+}
+
+class AppGetBookPrintingImageSuccessState extends AppState {}
+
+class AppGetBookPrintingImageFailureState extends AppState {
+  final String errorMessage;
+  AppGetBookPrintingImageFailureState({required this.errorMessage});
+}
+
+class AppChangeAddBookSelectedCategoryState extends AppState {}
+
+class AppChangeAddBookStateValueState extends AppState {}
+
+class AppAddBookLoadingState extends AppState {}
+
+class AppAddBookSuccessState extends AppState {}
+
+class AppAddBookFailureState extends AppState {
+  final String errorMessage;
+
+  AppAddBookFailureState({required this.errorMessage});
+}
+
+class AppGetUserBooksLoadingState extends AppState {}
+
+class AppGetUserBooksSuccessState extends AppState {}
+
+class AppGetUserBooksFailureState extends AppState {
+  final String errorMessage;
+
+  AppGetUserBooksFailureState({required this.errorMessage});
+}

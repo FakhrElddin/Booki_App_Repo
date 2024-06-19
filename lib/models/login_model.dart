@@ -16,20 +16,26 @@ class LoginModel{
 }
 
 class LoginUserData{
+  final String id;
   final String name;
   final String email;
+  final String city;
   final bool active;
 
   LoginUserData({
+    required this.id,
     required this.name,
     required this.email,
+    required this.city,
     required this.active,
   });
 
   factory LoginUserData.fromJson(Map<String, dynamic> json){
     return LoginUserData(
+      id: json['_id'],
       name: json['name'],
       email: json['email'],
+      city: json['city'],
       active: json['active'],
     );
   }
