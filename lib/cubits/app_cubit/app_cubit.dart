@@ -8,6 +8,7 @@ import 'package:graduation_project/helper/dio_helper.dart';
 import 'package:graduation_project/helper/end_points.dart';
 import 'package:graduation_project/models/add_book_model.dart';
 import 'package:graduation_project/models/category_model.dart';
+import 'package:graduation_project/models/user_books_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 
@@ -177,6 +178,19 @@ class AppCubit extends Cubit<AppState> {
       print('add book failure state 2 : ${e.toString()}');
       emit(AppAddBookFailureState(
           errorMessage: 'There was an error, try again'));
+    }
+  }
+
+  UserBooksModel? userBooksModel;
+  void getUserBooks() async{
+    try {
+      Response response = await DioHelper.getData(
+            url: '/api/v1/user/$userId/books',
+          );
+      userBooksModel = UserBooksModel.fromJson(response.data);
+      print(userBooksModel!.data[0].images);
+    } catch (e) {
+      print(e);
     }
   }
 }

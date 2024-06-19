@@ -41,7 +41,7 @@ class BookiApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => BottomNavBarCubit(),),
-        BlocProvider(create: (context) => AppCubit()..getCategories(),),
+        BlocProvider(create: (context) => AppCubit()..getCategories()..getUserBooks(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
