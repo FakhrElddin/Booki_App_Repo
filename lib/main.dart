@@ -18,6 +18,7 @@ void main() async {
   await DioHelper.init();
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false;
   token = CacheHelper.getData(key: 'token');
+  userId = CacheHelper.getData(key: 'userId');
   late Widget startView;
 
   if (onBoarding ?? false) {
@@ -39,7 +40,7 @@ class BookiApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => BottomNavBarCubit(),),
-        BlocProvider(create: (context) => AppCubit()..getCategories(),),
+        BlocProvider(create: (context) => AppCubit()..getCategories()..getUserBooks(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

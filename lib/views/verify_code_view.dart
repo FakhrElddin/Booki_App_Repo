@@ -69,6 +69,10 @@ class _VerifyCodeViewState extends State<VerifyCodeView> {
         key: 'token',
         value: BlocProvider.of<RegisterCubit>(context).registerModel!.token,
       );
+      CacheHelper.saveData(
+        key: 'userId',
+        value: BlocProvider.of<RegisterCubit>(context).registerModel!.token,
+      );
       print('token = ${BlocProvider.of<RegisterCubit>(context).registerModel!.token}');
       Navigator.push(context, MaterialPageRoute(builder: (context){
         return const AppView();

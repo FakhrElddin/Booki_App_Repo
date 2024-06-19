@@ -48,3 +48,13 @@ class AppAddBookFailureState extends AppState {
 
   AppAddBookFailureState({required this.errorMessage});
 }
+
+class AppGetUserBooksLoadingState extends AppState {}
+
+class AppGetUserBooksSuccessState extends AppState {}
+
+class AppGetUserBooksFailureState extends AppState {
+  final String errorMessage;
+
+  AppGetUserBooksFailureState({required this.errorMessage});
+}
