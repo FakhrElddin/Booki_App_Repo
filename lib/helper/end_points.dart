@@ -14,3 +14,5 @@ const RESET_PASSWORD = 'api/v1/auth/resetPassword';
 const VERIFY_OTP = 'api/v1/auth/verifyOTP';
 
 const CATEGORIES = '/api/v1/categories';
+
+const ADDBOOK = 'api/v1/books';

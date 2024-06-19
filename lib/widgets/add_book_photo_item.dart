@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class AddBookPhotoItem extends StatelessWidget {
-  const AddBookPhotoItem({super.key, required this.photoName, this.onTap});
+  const AddBookPhotoItem({super.key, required this.photoName, this.onTap, this.imagePath});
 
   final String photoName;
   final void Function()? onTap;
+  final File? imagePath;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -21,13 +24,22 @@ class AddBookPhotoItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.add,
                 size: 32,
               ),
+              if(imagePath != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.file(
+                  imagePath!,
+                  fit: BoxFit.cover,
+                  height: 200,
+                ),
+              ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
