@@ -52,7 +52,7 @@ class BookOwnerInfo extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const StarDisplay(
+           StarDisplay(
             value: 4,
             size: 35,
           ),

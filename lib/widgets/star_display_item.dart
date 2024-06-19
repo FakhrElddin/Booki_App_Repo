@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 class StarDisplay extends StatelessWidget {
-  final double value;
+  final dynamic value;
   final double size;
-   const StarDisplay({ Key? key, this.value = 0, required this.size})
+    StarDisplay({ Key? key,required this.value, required this.size})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

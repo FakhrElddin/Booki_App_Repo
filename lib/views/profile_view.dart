@@ -6,11 +6,11 @@ import 'package:graduation_project/local/cache_helper.dart';
 import 'login_view.dart';
 import 'update_user_info.dart';
 import '../constants.dart';
-import '../widgets/book_owner_full_profile_body.dart';
+import '../widgets/user_full_profile_body.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({Key? key});
-
+  const ProfileView({Key? key,  this.user});
+final UserModel? user;
   @override
   State<ProfileView> createState() => _ProfileViewState();
 }
@@ -44,7 +44,7 @@ class _ProfileViewState extends State<ProfileView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BookOwnerFullProfileBody(),
+                      UserProfileBody(user: user,),
                       const SizedBox(height: 24),
                       Padding(
                         padding: const EdgeInsets.only(left: 25),
@@ -139,7 +139,7 @@ class _ProfileViewState extends State<ProfileView> {
 // import 'package:graduation_project/local/cache_helper.dart';
 // import 'package:graduation_project/views/update_user_info.dart';
 // import '../constants.dart';
-// import '../widgets/book_owner_full_profile_body.dart';
+// import '../widgets/user_full_profile_body.dart';
 // import 'login_view.dart';
 //
 // class ProfileView extends StatelessWidget {
