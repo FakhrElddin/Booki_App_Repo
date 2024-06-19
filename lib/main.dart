@@ -18,6 +18,8 @@ void main() async {
   await DioHelper.init();
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false;
   token = CacheHelper.getData(key: 'token');
+  userId = CacheHelper.getData(key: 'userId');
+  print(userId);
   late Widget startView;
 
   if (onBoarding ?? false) {

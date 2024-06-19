@@ -31,6 +31,10 @@ class LoginBody extends StatelessWidget {
               key: 'token',
               value: BlocProvider.of<LoginCubit>(context).loginModel!.token,
             );
+            CacheHelper.saveData(
+              key: 'userId',
+              value: BlocProvider.of<LoginCubit>(context).loginModel!.data.id,
+            );
              print('token = ${BlocProvider.of<LoginCubit>(context).loginModel!.token}');
             Navigator.push(context, MaterialPageRoute(builder: (context){
               return const AppView();
