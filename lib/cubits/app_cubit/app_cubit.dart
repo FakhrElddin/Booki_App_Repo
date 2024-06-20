@@ -196,10 +196,16 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
+  int pageNumber = 1;
   HomeGridBooksModel? homeGridBooksModel;
   List<HomeGridBooksDataModel> homeGridBooks = [];
-  void getHomeGridBooks({int pageNumber = 1}) async{
-    emit(AppGetHomeGridBooksLoadingState());
+  void getHomeGridBooks({bool fromPagination = false}) async{
+    if(fromPagination){
+      emit(AppGetNextPageForHomeGridBooksLoadingState());
+      pageNumber++;
+    } else{
+      emit(AppGetHomeGridBooksLoadingState());
+    }
     try {
       Response response = await DioHelper.getData(
             url: 'api/v1/books?page=$pageNumber&limit=1',
@@ -208,9 +214,6 @@ class AppCubit extends Cubit<AppState> {
       for(var book in homeGridBooksModel!.data){
         homeGridBooks.add(book);
       }
-      print(homeGridBooks[0].images);
-      print(homeGridBooksModel!.paginationResult.limit);
-      print(homeGridBooksModel!.data[0].user.name);
       emit(AppGetHomeGridBooksSuccessState());
     } on DioException catch(e){
       print('1');
@@ -223,4 +226,12 @@ class AppCubit extends Cubit<AppState> {
       emit(AppGetHomeGridBooksFailureState(errorMessage: 'There was an error'));
     }
   }
+
+  void getNextPageForHomeGridBooks({required bool fromPagination}){
+    if(pageNumber >= homeGridBooksModel!.paginationResult.numberOfPages){}
+    else{
+      getHomeGridBooks(fromPagination: fromPagination);
+    }
+  }
+
 }

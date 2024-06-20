@@ -20,7 +20,8 @@ class GridViewItem extends StatelessWidget {
                 width: 120,
                 height: 180,
                 fit: BoxFit.cover,
-                imageUrl: homeGridBooksDataModel.coverImage,
+                imageUrl: "https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
+                //imageUrl: homeGridBooksDataModel.coverImage,
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
                     Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
                 errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
