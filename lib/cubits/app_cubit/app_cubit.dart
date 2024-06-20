@@ -8,6 +8,7 @@ import 'package:graduation_project/helper/dio_helper.dart';
 import 'package:graduation_project/helper/end_points.dart';
 import 'package:graduation_project/models/add_book_model.dart';
 import 'package:graduation_project/models/category_model.dart';
+import 'package:graduation_project/models/favorites_model.dart';
 import 'package:graduation_project/models/home_grid_books_model.dart';
 import 'package:graduation_project/models/user_books_model.dart';
 import 'package:image_picker/image_picker.dart';
@@ -231,6 +232,28 @@ class AppCubit extends Cubit<AppState> {
     if(pageNumber >= homeGridBooksModel!.paginationResult.numberOfPages){}
     else{
       getHomeGridBooks(fromPagination: fromPagination);
+    }
+  }
+
+  FavoritesModel? favoritesModel;
+  List<FavoritesDataModel> favoritesList = [];
+  void getUserFavorites() async{
+    try {
+      Response response = await DioHelper.getData(
+            url: 'api/v1/wishlist',
+            token: token,
+          );
+      favoritesModel = FavoritesModel.fromJson(response.data);
+      for(var book in favoritesModel!.data){
+        favoritesList.add(book);
+      }
+      print(favoritesModel!.data[0].images);
+      print(favoritesList[0].images);
+    } on DioException catch(e){
+      emit(AppGetFavoritesFailureState(errorMessage: 'There was an error, try again later'));
+      print(e.response.toString());
+    } catch (e) {
+      emit(AppGetFavoritesFailureState(errorMessage: 'There was an error, try again'));
     }
   }
 

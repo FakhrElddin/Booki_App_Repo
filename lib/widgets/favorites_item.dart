@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/constants.dart';
+import 'package:graduation_project/models/favorites_model.dart';
 
 class FavoritesItem extends StatelessWidget {
-  const FavoritesItem({super.key});
+  const FavoritesItem({super.key, required this.favoritesDataModel});
 
+  final FavoritesDataModel favoritesDataModel;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,7 +21,8 @@ class FavoritesItem extends StatelessWidget {
                   width: 120,
                   height: 160,
                   fit: BoxFit.cover,
-                  imageUrl: "https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
+                  imageUrl: favoritesDataModel.coverImage,
+                  //imageUrl: "https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
                   errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
@@ -58,7 +61,7 @@ class FavoritesItem extends StatelessWidget {
                   height: 16,
                 ),
                 Text(
-                  'I Have Something to Tell You',
+                  favoritesDataModel.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -82,7 +85,7 @@ class FavoritesItem extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      'seller name',
+                      favoritesDataModel.user.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -104,7 +107,7 @@ class FavoritesItem extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Text(
-                          'general',
+                          favoritesDataModel.category.name,
                           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: kPrimaryColor,
                             fontWeight: FontWeight.normal,
@@ -114,7 +117,7 @@ class FavoritesItem extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      '200 EGP',
+                      '${favoritesDataModel.price} EGP',
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 20,
                       ),

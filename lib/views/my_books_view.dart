@@ -34,7 +34,7 @@ class MyBooksView extends StatelessWidget {
             ),
           ),
           body: ConditionalBuilder(
-            condition: state is! AppGetUserBooksLoadingState,
+            condition: BlocProvider.of<AppCubit>(context).userBooksModel != null,
             builder: (context) => MyBooksViewBody(
               userBooksModel: BlocProvider.of<AppCubit>(context).userBooksModel!,
             ),
