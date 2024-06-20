@@ -73,3 +73,12 @@ class AppGetNextPageForHomeGridBooksLoadingState extends AppState {}
 
 class AppGetNextPageForHomeGridBooksFailureState extends AppState {}
 
+class AppGetFavoritesLoadingState extends AppState {}
+
+class AppGetFavoritesSuccessState extends AppState {}
+
+class AppGetFavoritesFailureState extends AppState {
+  final String errorMessage;
+
+  AppGetFavoritesFailureState({required this.errorMessage});
+}

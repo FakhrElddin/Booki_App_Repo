@@ -1,40 +1,18 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project/widgets/favorites_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/widgets/favorites_view_body.dart';
 
 class FavoritesView extends StatelessWidget {
   const FavoritesView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 16,
-            ),
-            const Text(
-              'My Favorite Books',
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => FavoritesItem(),
-              separatorBuilder: (context, index) => const SizedBox(height: 32,),
-              itemCount: 10,
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-          ],
-        ),
-      ),
+    return ConditionalBuilder(
+      condition: BlocProvider.of<AppCubit>(context).favoritesModel != null,
+      builder: (context) => FavoritesViewBody(),
+      fallback: (context) => const Center(child: CircularProgressIndicator()),
     );
   }
 }
