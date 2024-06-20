@@ -35,7 +35,7 @@ class UserProfileBody extends StatelessWidget {
                         child: CircularProgressIndicator(
                             value: downloadProgress.progress)),
                 errorWidget: (context, url, error) =>
-                    Center(child: Icon(Icons.error)),
+                    const Center(child: Icon(Icons.error)),
               ),
             ),
             const SizedBox(
@@ -76,10 +76,10 @@ class UserProfileBody extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(6)),
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Text(
                   user.email,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
@@ -109,7 +109,7 @@ class UserProfileBody extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(6)),
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Text(
                   user.name,
                   style: const TextStyle(
@@ -142,10 +142,10 @@ class UserProfileBody extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(6)),
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Text(
                   user.cardId.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
@@ -175,10 +175,10 @@ class UserProfileBody extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(6)),
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Text(
                   user.city.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
