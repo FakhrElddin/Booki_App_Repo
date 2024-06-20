@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
 import 'package:graduation_project/models/category_model.dart';
 import 'package:graduation_project/widgets/book_item.dart';
 import 'package:graduation_project/widgets/category_card.dart';
+import 'package:graduation_project/widgets/grid_view_item.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({
@@ -62,6 +65,12 @@ class HomeViewBody extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
+            const Text(
+              'All Books',
+            ),
+            const SizedBox(
+              height: 8,
+            ),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -71,8 +80,10 @@ class HomeViewBody extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
               ),
-              itemBuilder: (context, index) => const BookItem(),
-              itemCount: 20,
+              itemBuilder: (context, index) => GridViewItem(
+                homeGridBooksDataModel: BlocProvider.of<AppCubit>(context).homeGridBooks[index],
+              ),
+              itemCount: BlocProvider.of<AppCubit>(context).homeGridBooks.length,
             ),
           ],
         ),
