@@ -8,6 +8,7 @@ import 'package:graduation_project/helper/dio_helper.dart';
 import 'package:graduation_project/helper/end_points.dart';
 import 'package:graduation_project/models/add_book_model.dart';
 import 'package:graduation_project/models/category_model.dart';
+import 'package:graduation_project/models/home_grid_books_model.dart';
 import 'package:graduation_project/models/user_books_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
@@ -194,4 +195,43 @@ class AppCubit extends Cubit<AppState> {
       emit(AppGetUserBooksFailureState(errorMessage: 'There was an error'));
     }
   }
+
+  int pageNumber = 1;
+  HomeGridBooksModel? homeGridBooksModel;
+  List<HomeGridBooksDataModel> homeGridBooks = [];
+  void getHomeGridBooks({bool fromPagination = false}) async{
+    if(fromPagination){
+      emit(AppGetNextPageForHomeGridBooksLoadingState());
+      pageNumber++;
+    } else{
+      emit(AppGetHomeGridBooksLoadingState());
+    }
+    try {
+      Response response = await DioHelper.getData(
+            url: 'api/v1/books?page=$pageNumber&limit=1',
+          );
+      homeGridBooksModel = HomeGridBooksModel.fromJson(response.data);
+      for(var book in homeGridBooksModel!.data){
+        homeGridBooks.add(book);
+      }
+      emit(AppGetHomeGridBooksSuccessState());
+    } on DioException catch(e){
+      print('1');
+      print(e.response!.data);
+      emit(AppGetHomeGridBooksFailureState(errorMessage: 'There was an error'));
+    }
+    catch (e) {
+      print('2');
+      print(e.toString());
+      emit(AppGetHomeGridBooksFailureState(errorMessage: 'There was an error'));
+    }
+  }
+
+  void getNextPageForHomeGridBooks({required bool fromPagination}){
+    if(pageNumber >= homeGridBooksModel!.paginationResult.numberOfPages){}
+    else{
+      getHomeGridBooks(fromPagination: fromPagination);
+    }
+  }
+
 }

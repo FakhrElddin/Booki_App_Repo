@@ -58,3 +58,18 @@ class AppGetUserBooksFailureState extends AppState {
 
   AppGetUserBooksFailureState({required this.errorMessage});
 }
+
+class AppGetHomeGridBooksLoadingState extends AppState {}
+
+class AppGetHomeGridBooksSuccessState extends AppState {}
+
+class AppGetHomeGridBooksFailureState extends AppState {
+  final String errorMessage;
+
+  AppGetHomeGridBooksFailureState({required this.errorMessage});
+}
+
+class AppGetNextPageForHomeGridBooksLoadingState extends AppState {}
+
+class AppGetNextPageForHomeGridBooksFailureState extends AppState {}
+
