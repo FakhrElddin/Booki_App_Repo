@@ -17,7 +17,7 @@ class HomeView extends StatelessWidget {
       builder: (context, state) {
         var appCubit = BlocProvider.of<AppCubit>(context);
         return ConditionalBuilder(
-          condition: appCubit.categoryModel != null,
+          condition: appCubit.categoryModel != null && appCubit.homeGridBooksModel != null,
           builder: (context) => HomeViewBody(categoryModel: appCubit.categoryModel!,),
           fallback: (context) => const Center(child: CircularProgressIndicator()),
         );
