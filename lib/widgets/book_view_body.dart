@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/models/book_model.dart';
 import 'package:graduation_project/views/confirm_order.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../constants.dart';
@@ -9,7 +10,8 @@ import 'book_details.dart';
 
 
 class BookViewBody extends StatefulWidget {
-  const BookViewBody({super.key});
+  const BookViewBody({super.key, required this.bookModel});
+  final BookModel bookModel;
 
   @override
   State<BookViewBody> createState() => _BookViewBodyState();
@@ -19,10 +21,10 @@ class _BookViewBodyState extends State<BookViewBody> {
 
   PageController bookImagesController = PageController();
   String imageName = 'Cover';
-  final List<String> bookImage = const [
-    'https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWhh8NZkGr5dMPDBFke865glqUt_iqGME6zg&usqp=CAU',
-    'https://americanbookco.com/wp-content/uploads/2021/02/stacked-books.jpeg',
+  late List<String> bookImages = [
+    widget.bookModel.bookCoverImage,
+    widget.bookModel.bookStubImage,
+    widget.bookModel.bookPrintingImage,
   ];
 
   @override
@@ -67,7 +69,7 @@ class _BookViewBodyState extends State<BookViewBody> {
                           alignment: Alignment.topLeft,
                           children: [
                             Image.network(
-                              bookImage[index],
+                              bookImages[index],
                               //width: 200,
                               height: 300,
                               fit: BoxFit.fill,
@@ -97,7 +99,7 @@ class _BookViewBodyState extends State<BookViewBody> {
                           ],
                         ),
                       ),
-                      itemCount: bookImage.length,
+                      itemCount: bookImages.length,
                     ),
                   ),
                 ),
@@ -106,7 +108,7 @@ class _BookViewBodyState extends State<BookViewBody> {
                 ),
                 SmoothPageIndicator(
                   controller: bookImagesController,
-                  count: bookImage.length,
+                  count: bookImages.length,
                   effect: const ExpandingDotsEffect(
                     activeDotColor: kPrimaryColor,
                     dotWidth: 10,
@@ -116,9 +118,9 @@ class _BookViewBodyState extends State<BookViewBody> {
                 const SizedBox(
                   height: 24,
                 ),
-                const Text(
-                  'Book name',
-                  style: TextStyle(
+                Text(
+                  widget.bookModel.title,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -126,12 +128,13 @@ class _BookViewBodyState extends State<BookViewBody> {
                 const SizedBox(
                   height: 15,
                 ),
-                const BookDetails(
-                    editiondetails: '1999',
-                    categorydetails: 'Religious',
-                    timeUseddetails: '2 years',
-                    pricedetails: '200 L.E',
-                    statusdetails: 'Good'),
+                BookDetails(
+                    editionDetails: widget.bookModel.edition.toString(),
+                    categoryDetails: widget.bookModel.category,
+                    timeUsedDetails: '${widget.bookModel.timeUsed} years',
+                    priceDetails: '${widget.bookModel.price} L.E',
+                    statusDetails: widget.bookModel.status,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -175,9 +178,9 @@ class _BookViewBodyState extends State<BookViewBody> {
                         const Spacer(
                           flex: 10,
                         ),
-                        const Text(
-                          'Book owner name',
-                          style: TextStyle(
+                        Text(
+                          widget.bookModel.bookOwnerName,
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
                           ),
