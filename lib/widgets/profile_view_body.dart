@@ -1,14 +1,16 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/helper/show_awesome_dialog.dart';
 import 'package:graduation_project/models/profile_model.dart';
 import 'package:graduation_project/widgets/star_display_item.dart';
 
 import '../constants.dart';
 import '../local/cache_helper.dart';
 import '../views/login_view.dart';
-import '../views/update_user_info.dart';
+import '../views/update_profile_view.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({super.key, required this.profileModel});
@@ -58,17 +60,15 @@ class ProfileViewBody extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 85,
-                ),
-                StarDisplay(
-                  value: profileModel.data.ratingsAverage,
-                  size: 35,
-                  //size: 35,
-                ),
-              ],
+            const SizedBox(
+              width: 85,
+            ),
+            Center(
+              child: StarDisplay(
+                value: profileModel.data.ratingsAverage,
+                size: 35,
+                //size: 35,
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -219,7 +219,7 @@ class ProfileViewBody extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return const UpdateUserInfo();
+                          return const UpdateProfileView();
                         }));
                   },
                   child: const Text('Update profile'),
@@ -236,16 +236,23 @@ class ProfileViewBody extends StatelessWidget {
                     foregroundColor: Colors.black,
                   ),
                   onPressed: () {
-                    CacheHelper.removeData(key: 'token');
-                    CacheHelper.removeData(key: 'userId');
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const LoginView();
-                        },
-                      ),
-                    );
+                    showAwesomeDialog(
+                        context,
+                        dialogType: DialogType.warning,
+                        title: 'Waring',
+                        body: 'Do you want to logout',
+                        okOnPress: (){
+                          CacheHelper.removeData(key: 'token');
+                          CacheHelper.removeData(key: 'userId');
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const LoginView();
+                              },
+                            ),
+                          );
+                        });
                   },
                   child: const Text('Log out'),
                 ),

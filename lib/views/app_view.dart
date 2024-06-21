@@ -12,91 +12,93 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => AppCubit()..getCategories()..getUserBooks()..getHomeGridBooks()..getUserFavorites()..getProfileInfo(),),
-      ],
-      child: BlocConsumer<BottomNavBarCubit, BottomNavBarState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          var bottomNavCubit = BlocProvider.of<BottomNavBarCubit>(context);
-          return Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: GestureDetector(
-                onTap: () {
-                  if (bottomNavCubit.currentIndex != 0) {
-                    bottomNavCubit.changeBottomNavBar(index: 0);
-                  }
-                },
-                child: Row(
-                  children: [
-                    const Text(
-                      'BOOKI',
-                      style: TextStyle(
-                        fontFamily: 'Pacifico',
-                        fontWeight: FontWeight.bold,
-                        color: kPrimaryColor,
+    return BlocConsumer<BottomNavBarCubit, BottomNavBarState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        var bottomNavCubit = BlocProvider.of<BottomNavBarCubit>(context);
+        return BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: GestureDetector(
+                  onTap: () {
+                    if (bottomNavCubit.currentIndex != 0) {
+                      bottomNavCubit.changeBottomNavBar(index: 0);
+                    }
+                  },
+                  child: Row(
+                    children: [
+                      const Text(
+                        'BOOKI',
+                        style: TextStyle(
+                          fontFamily: 'Pacifico',
+                          fontWeight: FontWeight.bold,
+                          color: kPrimaryColor,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    SvgPicture.asset(
-                      kBookLogo,
-                      height: 40,
-                      width: 40,
-                    ),
-                  ],
-                ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.search,
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      SvgPicture.asset(
+                        kBookLogo,
+                        height: 40,
+                        width: 40,
+                      ),
+                    ],
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.notifications_none,
+                actions: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.search,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.notifications_none,
+                    ),
+                  ),
+                ],
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(4),
+                  child: Container(
+                    color: Colors.grey[800],
+                    height: 1,
                   ),
                 ),
-              ],
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(4),
-                child: Container(
-                  color: Colors.grey[800],
-                  height: 1,
+              ),
+              bottomNavigationBar: Container(
+                height: 75,
+                decoration: const BoxDecoration(
+                  border: Border(top: BorderSide(
+                    color: Colors.grey,
+                    width: 1,
+                  )),
+                ),
+                child: BottomNavigationBar(
+                  currentIndex: bottomNavCubit.currentIndex,
+                  onTap: (index) {
+                    bottomNavCubit.changeBottomNavBar(index: index);
+                  },
+                  items: bottomNavCubit.items,
                 ),
               ),
-            ),
-            bottomNavigationBar: Container(
-              height: 75,
-              decoration: const BoxDecoration(
-                border: Border(top: BorderSide(
-                  color: Colors.grey,
-                  width: 1,
-                )),
+              body: DoubleBackToCloseApp(
+                snackBar: closeAppSnackBar(),
+                child: bottomNavCubit.views[bottomNavCubit.currentIndex],
               ),
-              child: BottomNavigationBar(
-                currentIndex: bottomNavCubit.currentIndex,
-                onTap: (index) {
-                  bottomNavCubit.changeBottomNavBar(index: index);
-                },
-                items: bottomNavCubit.items,
-              ),
-            ),
-            body: DoubleBackToCloseApp(
-              snackBar: closeAppSnackBar(),
-              child: bottomNavCubit.views[bottomNavCubit.currentIndex],
-            ),
-          );
-        },
-      ),
+            );
+          },
+        );
+      },
     );
   }
 }
