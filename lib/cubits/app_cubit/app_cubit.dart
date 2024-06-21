@@ -10,6 +10,7 @@ import 'package:graduation_project/models/add_book_model.dart';
 import 'package:graduation_project/models/category_model.dart';
 import 'package:graduation_project/models/favorites_model.dart';
 import 'package:graduation_project/models/home_grid_books_model.dart';
+import 'package:graduation_project/models/profile_model.dart';
 import 'package:graduation_project/models/user_books_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
@@ -255,6 +256,34 @@ class AppCubit extends Cubit<AppState> {
     } catch (e) {
       emit(AppGetFavoritesFailureState(errorMessage: 'There was an error, try again'));
     }
+  }
+
+  ProfileModel? profileModel;
+  void getProfileInfo() async{
+    emit(AppGetProfileInfoLoadingState());
+    try {
+      Response response = await DioHelper.getData(
+        url: PROFILEINFO,
+        token: token,
+          );
+      profileModel = ProfileModel.formJson(response.data);
+      print('profile data = ${profileModel!.data.email}');
+      emit(AppGetProfileInfoSuccessState());
+    } on DioException catch(e){
+      print('1');
+      print(e.response!.data);
+      emit(AppGetProfileInfoFailureState(errorMessage: 'You are not logged in'));
+    }
+    catch (e) {
+      print('2');
+      print(e.toString());
+      emit(AppGetProfileInfoFailureState(errorMessage: 'There was an error'));
+    }
+  }
+
+  void logoutUser(){
+    profileModel = null;
+    print(profileModel?.data.email);
   }
 
 }

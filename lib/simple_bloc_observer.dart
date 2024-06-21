@@ -8,7 +8,7 @@ class SimpleBlocObserver implements BlocObserver{
 
   @override
   void onClose(BlocBase bloc) {
-    // TODO: implement onClose
+    print('Cubit Closed: ${bloc.runtimeType}');
   }
 
   @override

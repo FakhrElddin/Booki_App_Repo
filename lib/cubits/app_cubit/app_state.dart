@@ -82,3 +82,15 @@ class AppGetFavoritesFailureState extends AppState {
 
   AppGetFavoritesFailureState({required this.errorMessage});
 }
+
+class AppUserLogoutSuccessState extends AppState {}
+
+class AppGetProfileInfoLoadingState extends AppState {}
+
+class AppGetProfileInfoSuccessState extends AppState {}
+
+class AppGetProfileInfoFailureState extends AppState {
+  final String errorMessage;
+
+  AppGetProfileInfoFailureState({required this.errorMessage});
+}

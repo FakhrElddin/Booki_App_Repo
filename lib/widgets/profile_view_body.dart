@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project/models/user_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/models/profile_model.dart';
 import 'package:graduation_project/widgets/star_display_item.dart';
 
 import '../constants.dart';
@@ -8,12 +10,20 @@ import '../local/cache_helper.dart';
 import '../views/login_view.dart';
 import '../views/update_user_info.dart';
 
-class UserProfileBody extends StatelessWidget {
-  const UserProfileBody({super.key, required this.user});
-  final UserModel user;
+class ProfileViewBody extends StatelessWidget {
+  const ProfileViewBody({super.key, required this.profileModel});
+
+  final ProfileModel profileModel;
+
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<AppCubit, AppState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
@@ -22,25 +32,27 @@ class UserProfileBody extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            ClipRRect(
-              child: CachedNetworkImage(
-                fit: BoxFit.fill,
-                imageUrl: user.profileImage.toString(),
-                imageBuilder: (context, imageProvider) => Container(
-                  width: 180.0,
-                  height: 180.0,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover),
+            Center(
+              child: ClipRRect(
+                child: CachedNetworkImage(
+                  fit: BoxFit.fill,
+                  imageUrl: profileModel.data.profileImage ?? 'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: 180.0,
+                    height: 180.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
+                    ),
                   ),
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                          child: CircularProgressIndicator(
+                              value: downloadProgress.progress)),
+                  errorWidget: (context, url, error) =>
+                      const Center(child: Icon(Icons.error)),
                 ),
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                        child: CircularProgressIndicator(
-                            value: downloadProgress.progress)),
-                errorWidget: (context, url, error) =>
-                    const Center(child: Icon(Icons.error)),
               ),
             ),
             const SizedBox(
@@ -52,7 +64,7 @@ class UserProfileBody extends StatelessWidget {
                   width: 85,
                 ),
                 StarDisplay(
-                  value: user.ratingsAverage,
+                  value: profileModel.data.ratingsAverage,
                   size: 35,
                   //size: 35,
                 ),
@@ -83,7 +95,7 @@ class UserProfileBody extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  user.email,
+                  profileModel.data.email,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -116,7 +128,7 @@ class UserProfileBody extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  user.name,
+                  profileModel.data.name,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -149,7 +161,7 @@ class UserProfileBody extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  user.cardId.toString(),
+                  profileModel.data.cardId ?? '',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -182,7 +194,7 @@ class UserProfileBody extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  user.city.toString(),
+                  profileModel.data.city ?? '',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -225,6 +237,7 @@ class UserProfileBody extends StatelessWidget {
                   ),
                   onPressed: () {
                     CacheHelper.removeData(key: 'token');
+                    CacheHelper.removeData(key: 'userId');
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -260,11 +273,16 @@ class UserProfileBody extends StatelessWidget {
                   },
                   child: const Text('Delete account'),
                 ),
+                const SizedBox(
+                  height: 50,
+                ),
               ],
             ),
           ],
         ),
       ),
     );
+  },
+);
   }
 }

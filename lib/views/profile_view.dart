@@ -1,57 +1,30 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:graduation_project/models/user_model.dart';
-import 'package:graduation_project/widgets/user_service.dart';
-import '../widgets/user_full_profile_body.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/widgets/profile_view_body.dart';
 
-class ProfileView extends StatefulWidget {
-  const ProfileView({Key? key,  this.user});
-final UserModel? user;
-  @override
-  State<ProfileView> createState() => _ProfileViewState();
-}
 
-class _ProfileViewState extends State<ProfileView> {
-  late Future<UserModel> futureUser;
+class ProfileView extends StatelessWidget {
+  const ProfileView({super.key});
 
-  @override
-  void initState() {
-    super.initState();
-    futureUser = UserService(Dio()).getUserInfo();
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<UserModel>(
-      future: futureUser,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return const Center(child: Text('Failed to load user data'));
-        } else if (snapshot.hasData) {
-          final user = snapshot.data!;
-          return Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      UserProfileBody(user: user,),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        }
-        else {
-          return const Center(child: Text('No user data available'));
-        }
-      },
+    return BlocConsumer<AppCubit, AppState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return ConditionalBuilder(
+        condition: BlocProvider.of<AppCubit>(context).profileModel != null,
+        builder: (context) => ProfileViewBody(
+          profileModel: BlocProvider.of<AppCubit>(context).profileModel!,
+        ),
+        fallback: (context) => const Center(child: CircularProgressIndicator()),
     );
+  },
+);
   }
 }
