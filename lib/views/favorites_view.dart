@@ -9,10 +9,20 @@ class FavoritesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConditionalBuilder(
-      condition: BlocProvider.of<AppCubit>(context).favoritesModel != null,
-      builder: (context) => FavoritesViewBody(),
-      fallback: (context) => const Center(child: CircularProgressIndicator()),
+    return BlocConsumer<AppCubit, AppState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return ConditionalBuilder(
+          condition: BlocProvider
+              .of<AppCubit>(context)
+              .favoritesModel != null,
+          builder: (context) => FavoritesViewBody(),
+          fallback: (context) =>
+          const Center(child: CircularProgressIndicator()),
+        );
+      },
     );
   }
 }

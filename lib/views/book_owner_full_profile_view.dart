@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import 'package:graduation_project/widgets/user_full_profile_body.dart';
+// import 'package:graduation_project/widgets/profile_view_body.dart';
 // //good_code
 // class BookOwnerFullProfileView extends StatelessWidget {
 //   const BookOwnerFullProfileView({super.key});
