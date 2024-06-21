@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/widgets/book_attributes.dart';
 class BookDetails extends StatelessWidget {
-   const BookDetails({super.key,required this.editiondetails, required this.categorydetails, required this.timeUseddetails, required this.pricedetails, required this.statusdetails,});
+   const BookDetails({super.key,required this.editionDetails, required this.categoryDetails, required this.timeUsedDetails, required this.priceDetails, required this.statusDetails,});
 
-   final String editiondetails;
-   final String categorydetails;
-   final String timeUseddetails;
-   final String pricedetails;
-   final String statusdetails;
+   final String editionDetails;
+   final String categoryDetails;
+   final String timeUsedDetails;
+   final String priceDetails;
+   final String statusDetails;
 
    @override
    Widget build(BuildContext context) {
@@ -15,11 +15,11 @@ class BookDetails extends StatelessWidget {
        padding: const EdgeInsets.only(left: 25),
        child: Column(
          children: [
-           BookAttribute(attribute: 'Edition', description: editiondetails),
-           BookAttribute(attribute: 'Category', description: categorydetails),
-           BookAttribute(attribute: 'TimeUsed', description: timeUseddetails),
-           BookAttribute(attribute: 'Price', description: pricedetails),
-           BookAttribute(attribute: 'Status', description: statusdetails),
+           BookAttribute(attribute: 'Edition', description: editionDetails),
+           BookAttribute(attribute: 'Category', description: categoryDetails),
+           BookAttribute(attribute: 'Time Used', description: timeUsedDetails),
+           BookAttribute(attribute: 'Price', description: priceDetails),
+           BookAttribute(attribute: 'Status', description: statusDetails),
          ],
        ),
      );

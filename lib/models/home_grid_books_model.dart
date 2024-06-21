@@ -37,17 +37,25 @@ class HomeGridBooksDataModel{
   final String id;
   final String title;
   final int price;
+  final int usedTime;
+  final int edition;
+  final String state;
   final String coverImage;
   final List<dynamic> images;
-  final UserModel user;
+  final HomeGridBooksUserModel user;
+  final HomeGridBooksCategoryModel category;
 
   HomeGridBooksDataModel({
     required this.id,
     required this.title,
     required this.price,
+    required this.usedTime,
+    required this.edition,
+    required this.state,
     required this.coverImage,
     required this.images,
-    required this.user
+    required this.user,
+    required this.category,
   });
 
   factory HomeGridBooksDataModel.fromJson(Map<String, dynamic> json){
@@ -55,22 +63,43 @@ class HomeGridBooksDataModel{
       id: json['_id'],
       title: json['title'],
       price: json['price'],
+      usedTime: json['usedTime'],
+      edition: json['edition'],
+      state: json['state'],
       coverImage: json['coverImage'],
       images: json['images'],
-      user: UserModel.fromJson(json['user']),
+      user: HomeGridBooksUserModel.fromJson(json['user']),
+      category: HomeGridBooksCategoryModel.fromJson(json['category'])
     );
   }
 }
 
-class UserModel{
+class HomeGridBooksUserModel{
+  final String id;
   final String name;
 
-  UserModel({
+  HomeGridBooksUserModel({
+    required this.id,
     required this.name,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json){
-    return UserModel(
+  factory HomeGridBooksUserModel.fromJson(Map<String, dynamic> json){
+    return HomeGridBooksUserModel(
+      name: json['name'],
+      id: json['_id'],
+    );
+  }
+}
+
+class HomeGridBooksCategoryModel{
+  final String name;
+
+  HomeGridBooksCategoryModel({
+    required this.name,
+  });
+
+  factory HomeGridBooksCategoryModel.fromJson(Map<String, dynamic> json){
+    return HomeGridBooksCategoryModel(
       name: json['name'],
     );
   }

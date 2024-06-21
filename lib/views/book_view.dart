@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/models/book_model.dart';
 import 'package:graduation_project/widgets/book_view_body.dart';
 
 
 class BookView extends StatelessWidget {
-  const BookView({super.key});
+  const BookView({super.key, required this.bookModel,});
+
+  final BookModel bookModel;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +14,7 @@ class BookView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Book page',
+          'Book Page',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -38,7 +41,7 @@ class BookView extends StatelessWidget {
           ),
         ],
       ),
-      body: BookViewBody(),
+      body: BookViewBody(bookModel: bookModel,),
     );
   }
 }
