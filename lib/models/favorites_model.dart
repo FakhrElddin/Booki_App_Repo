@@ -12,6 +12,9 @@ class FavoritesDataModel {
   final String id;
   final String title;
   final int price;
+  final int usedTime;
+  final int edition;
+  final String state;
   final String coverImage;
   final List<dynamic> images;
   final FavoritesCategoryModel category;
@@ -21,6 +24,9 @@ class FavoritesDataModel {
     required this.id,
     required this.title,
     required this.price,
+    required this.usedTime,
+    required this.edition,
+    required this.state,
     required this.coverImage,
     required this.images,
     required this.category,
@@ -32,6 +38,9 @@ class FavoritesDataModel {
       id: json['_id'],
       title: json['title'],
       price: json['price'],
+      usedTime: json['usedTime'],
+      edition: json['edition'],
+      state: json['state'],
       coverImage: json['coverImage'],
       images: json['images'],
       category: FavoritesCategoryModel.fromJson(json['category']),
