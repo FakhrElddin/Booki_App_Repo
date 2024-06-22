@@ -18,3 +18,5 @@ const CATEGORIES = 'api/v1/categories';
 const ADDBOOK = 'api/v1/books';
 
 const PROFILEINFO = 'api/v1/user/getMyInfo';
+
+const UPDATEPROFILE = 'api/v1/user/updateData';

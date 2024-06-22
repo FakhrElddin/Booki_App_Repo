@@ -125,6 +125,9 @@ class AppCubit extends Cubit<AppState> {
       //   ],
       // );
       // //
+      List<MultipartFile> images = [];
+      images.add(await MultipartFile.fromFile(bookStubImage!.path, filename: bookStubImage!.path.split('/').last,));
+      images.add(await MultipartFile.fromFile(bookPrintingImage!.path, filename: bookPrintingImage!.path.split('/').last,));
       var formData = FormData.fromMap({
         'title': name,
         'price': price,
@@ -132,10 +135,11 @@ class AppCubit extends Cubit<AppState> {
         'edition': edition,
         'category': addBookCategoryValue,
         'state': addBookStateValue,
-        'coverImage': await MultipartFile.fromFile(bookCoverImage!.path),
+        'coverImage': 'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
+        //'images': images,
         'images': [
-          await MultipartFile.fromFile(bookStubImage!.path),
-          await MultipartFile.fromFile(bookPrintingImage!.path),
+          'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
+          'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
         ],
       });
       Dio dio = Dio();
@@ -284,6 +288,75 @@ class AppCubit extends Cubit<AppState> {
   void logoutUser(){
     profileModel = null;
     print(profileModel?.data.email);
+  }
+
+  File? profileImage;
+  void addProfileImage() async {
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      profileImage = File(pickedFile.path);
+      emit(AppGetProfileImageSuccessState());
+      print(profileImage);
+      print(Uri.parse(profileImage!.path).pathSegments.last);
+    } else {
+      emit(AppGetProfileImageFailureState(
+          errorMessage: 'Profile Image Not Selected, Try Again'));
+    }
+  }
+
+  void updateProfile({
+    required String email,
+    required String name,
+    String? cardId,
+    String? city,
+  }) async{
+    emit(AppUpdateProfileLoadingState());
+    print(email);
+    print(name);
+    print(cardId);
+    print(city);
+    var formData = FormData.fromMap({
+      'email': email,
+      'title': name,
+      'city': city ?? 'Faiyum',
+      'cardId': cardId ?? '00000000000000',
+      //'profileImage': await MultipartFile.fromFile(profileImage!.path),
+    });
+    try {
+      Dio dio = Dio();
+      dio.options.headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+
+      };
+      Response response = await dio.put(
+        'http://10.0.2.2:4000/api/v1/user/updateData',
+        data: formData,
+      );
+      // Response response = await DioHelper.putDat(
+      //       url: UPDATEPROFILE,
+      //       data: {
+      //         'profileImage': profileImage ?? 'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
+      //         'email': email,
+      //         'name': name,
+      //         'city': city ?? 'Faiyum',
+      //         'cardId': cardId ?? '00000000000000',
+      //       },
+      //     );
+      print(response.data);
+      emit(AppUpdateProfileSuccessState());
+    } on DioException catch(e){
+      print('first');
+      print(e.response!.data);
+      emit(AppUpdateProfileFailureState(errorMessage: 'Failed to update profile'));
+    }
+    catch (e) {
+      print('second');
+      print(e);
+      emit(AppUpdateProfileFailureState(errorMessage: 'There was an error'));
+    }
   }
 
 }

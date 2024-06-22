@@ -94,3 +94,20 @@ class AppGetProfileInfoFailureState extends AppState {
 
   AppGetProfileInfoFailureState({required this.errorMessage});
 }
+
+class AppUpdateProfileLoadingState extends AppState {}
+
+class AppUpdateProfileSuccessState extends AppState {}
+
+class AppUpdateProfileFailureState extends AppState {
+  final String errorMessage;
+
+  AppUpdateProfileFailureState({required this.errorMessage});
+}
+
+class AppGetProfileImageSuccessState extends AppState {}
+
+class AppGetProfileImageFailureState extends AppState {
+  final String errorMessage;
+  AppGetProfileImageFailureState({required this.errorMessage});
+}

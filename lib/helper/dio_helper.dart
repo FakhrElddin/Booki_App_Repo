@@ -66,7 +66,13 @@ class DioHelper{
     required String url,
     Map<String, dynamic>? queryParameters,
     required Map<String, dynamic> data,
+    String? token,
 }) async{
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+
+    };
     return await dio.put(
       url,
       queryParameters: queryParameters,
