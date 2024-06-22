@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/helper/show_toast_message.dart';
 import 'package:graduation_project/widgets/custom_text_form_field.dart';
 
 class UpdateProfileView extends StatefulWidget {
@@ -23,9 +24,27 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if(state is AppUpdateProfileSuccessState){
+          showToastMessage(
+            context,
+            message: 'Profile Updated Successfully',
+            state: ToastStates.SUCCESS,
+          );
+        }
+        if(state is AppUpdateProfileFailureState){
+          showToastMessage(
+            context,
+            message: state.errorMessage,
+            state: ToastStates.SUCCESS,
+          );
+        }
       },
       builder: (context, state) {
+        var appCubit = BlocProvider.of<AppCubit>(context);
+        emailController.text = appCubit.profileModel!.data.email;
+        nameController.text = appCubit.profileModel!.data.name;
+        cardIdController.text = appCubit.profileModel?.data.cardId ?? '';
+        cityController.text = appCubit.profileModel?.data.city ?? '';
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -57,27 +76,21 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                       alignment: Alignment.bottomRight,
                       children: [
                         ClipRRect(
-                          child: CachedNetworkImage(
-                            fit: BoxFit.fill,
-                            imageUrl: 'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
-                            imageBuilder: (context, imageProvider) =>
-                                Container(
-                                  width: 180.0,
-                                  height: 180.0,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover),
-                                  ),
-                                ),
-                            progressIndicatorBuilder: (context, url,
-                                downloadProgress) =>
-                                Center(
-                                    child: CircularProgressIndicator(
-                                        value: downloadProgress.progress)),
-                            errorWidget: (context, url, error) =>
-                            const Center(child: Icon(Icons.error)),
+                          borderRadius: BorderRadius.circular(100),
+                          child: appCubit.profileImage != null ? Image.file(
+                            appCubit.profileImage!,
+                            width: 180,
+                            height: 180,
+                            fit: BoxFit.cover,
+                          )
+                              : CachedNetworkImage(
+                            width: 180,
+                            height: 180,
+                            fit: BoxFit.cover,
+                            imageUrl: "https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg",
+                            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                            errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
                           ),
                         ),
                         Padding(
@@ -85,7 +98,9 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                           child: CircleAvatar(
                             radius: 20,
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  appCubit.addProfileImage();
+                                },
                                 icon: const Icon(
                                   Icons.camera_alt,
                                   color: Colors.white,
@@ -171,10 +186,12 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                         fixedSize: const Size(360, 60),
                       ),
                       onPressed: () {
-                        print(emailController.text);
-                        print(nameController.text);
-                        print(cardIdController.text);
-                        print(cityController.text);
+                        appCubit.updateProfile(
+                          email: emailController.text,
+                          name: nameController.text,
+                          cardId: cardIdController.text,
+                          city: cityController.text,
+                        );
                       },
                       child: const Text('Update profile'),
                     ),
