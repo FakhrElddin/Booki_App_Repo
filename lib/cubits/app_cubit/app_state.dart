@@ -120,3 +120,12 @@ class AppSearchForBookFailureState extends AppState {
   final String errorMessage;
   AppSearchForBookFailureState({required this.errorMessage});
 }
+
+class AppGetCategoryBooksLoadingState extends AppState {}
+
+class AppGetCategoryBooksSuccessState extends AppState {}
+
+class AppGetCategoryBooksFailureState extends AppState {
+  final String errorMessage;
+  AppGetCategoryBooksFailureState({required this.errorMessage});
+}

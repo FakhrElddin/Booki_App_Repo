@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
 import 'package:graduation_project/models/category_model.dart';
 import 'package:graduation_project/views/category_view.dart';
 
@@ -12,8 +14,11 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
+        BlocProvider.of<AppCubit>(context).getCategoryBooks(
+          categoryId: categoryDataModel.id,
+        );
         Navigator.push(context, MaterialPageRoute(builder: (context){
-          return CategoryView();
+          return CategoryView(categoryName: categoryDataModel.name,);
         }));
       },
       child: Stack(
