@@ -135,12 +135,8 @@ class AppCubit extends Cubit<AppState> {
         'edition': edition,
         'category': addBookCategoryValue,
         'state': addBookStateValue,
-        'coverImage': 'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
-        //'images': images,
-        'images': [
-          'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
-          'https://t3.ftcdn.net/jpg/06/92/34/64/240_F_692346400_UzYGmrJm6qhyPPXyZeUGuyEhkwr1iSFN.jpg',
-        ],
+        'coverImage': await MultipartFile.fromFile(bookStubImage!.path, filename: bookStubImage!.path.split('/').last,),
+        'images': images,
       });
       Dio dio = Dio();
       Response response = await dio.post('http://10.0.2.2:4000/api/v1/books',
@@ -151,36 +147,14 @@ class AppCubit extends Cubit<AppState> {
               'Authorization': 'Bearer $token',
             },
           ));
-      /////
-      // Response response = await DioHelper.postData(
-      //   url: ADDBOOK,
-      //   data: {
-      //         'title': name,
-      //         'price': price,
-      //         'usedTime': usedTime,
-      //         'edition': edition,
-      //         'category': addBookCategoryValue,
-      //         'state': addBookStateValue,
-      //         'coverImage': Uri.parse(bookCoverImage!.path).pathSegments.last,
-      //         'images': [
-      //           Uri.parse(bookStubImage!.path).pathSegments.last,
-      //           Uri.parse(bookPrintingImage!.path).pathSegments.last,
-      //         ],
-      //       },
-      //   token: token,
-      //     );
-      ///////
-      // print('name: $name, price: $price, usedTime: $usedTime, edition: $edition');
-      // print('category: $addBookCategoryValue, state: $addBookStateValue');
-      // print(Uri.parse(bookCoverImage!.path).pathSegments.last);
-      // print(Uri.parse(bookStubImage!.path).pathSegments.last);
-      // print(Uri.parse(bookPrintingImage!.path).pathSegments.last);
       print('add book success state : ${response.data}');
+      getUserBooks();
+      getHomeGridBooks();
       emit(AppAddBookSuccessState());
     } on DioException catch (e) {
       print('add book failure state 1');
       print(e.response?.data ?? 'response is null');
-      emit(AppAddBookFailureState(errorMessage: 'dio error'));
+      emit(AppAddBookFailureState(errorMessage: e.response!.data['errors'][0]['msg']));
     } catch (e) {
       print('add book failure state 2 : ${e.toString()}');
       emit(AppAddBookFailureState(
@@ -214,7 +188,7 @@ class AppCubit extends Cubit<AppState> {
     }
     try {
       Response response = await DioHelper.getData(
-            url: 'api/v1/books?page=$pageNumber&limit=1',
+            url: 'api/v1/books?page=$pageNumber&limit=9',
           );
       homeGridBooksModel = HomeGridBooksModel.fromJson(response.data);
       for(var book in homeGridBooksModel!.data){
@@ -322,7 +296,7 @@ class AppCubit extends Cubit<AppState> {
       'title': name,
       'city': city ?? 'Faiyum',
       'cardId': cardId ?? '00000000000000',
-      //'profileImage': await MultipartFile.fromFile(profileImage!.path),
+      'profileImage': await MultipartFile.fromFile(profileImage!.path),
     });
     try {
       Dio dio = Dio();
