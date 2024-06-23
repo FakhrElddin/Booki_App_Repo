@@ -111,3 +111,12 @@ class AppGetProfileImageFailureState extends AppState {
   final String errorMessage;
   AppGetProfileImageFailureState({required this.errorMessage});
 }
+
+class AppSearchForBookLoadingState extends AppState {}
+
+class AppSearchForBookSuccessState extends AppState {}
+
+class AppSearchForBookFailureState extends AppState {
+  final String errorMessage;
+  AppSearchForBookFailureState({required this.errorMessage});
+}
