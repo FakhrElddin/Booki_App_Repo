@@ -24,7 +24,7 @@ class AppCubit extends Cubit<AppState> {
   List<String> categoryNamesList = [];
   List<String> categoryIdsList = [];
   String? addBookCategoryValue;
-  String? addBookStateValue;
+  String addBookStateValue = 'Good';
 
   void getCategories() async {
     emit(AppGetCategoriesLoadingState());

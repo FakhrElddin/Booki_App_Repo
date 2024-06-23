@@ -41,7 +41,7 @@ class _AddBookViewState extends State<AddBookView> {
           BlocProvider.of<AppCubit>(context).bookStubImage = null;
           BlocProvider.of<AppCubit>(context).bookPrintingImage = null;
           BlocProvider.of<AppCubit>(context).addBookCategoryValue = null;
-          BlocProvider.of<AppCubit>(context).addBookStateValue = null;
+          BlocProvider.of<AppCubit>(context).addBookStateValue = 'Good';
           Navigator.pop(context);
         }
       },
