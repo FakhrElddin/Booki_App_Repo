@@ -7,6 +7,7 @@ import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/helper/dio_helper.dart';
 import 'package:graduation_project/helper/end_points.dart';
 import 'package:graduation_project/models/add_book_model.dart';
+import 'package:graduation_project/models/category_book_model.dart';
 import 'package:graduation_project/models/category_model.dart';
 import 'package:graduation_project/models/favorites_model.dart';
 import 'package:graduation_project/models/home_grid_books_model.dart';
@@ -351,6 +352,23 @@ class AppCubit extends Cubit<AppState> {
       emit(AppSearchForBookSuccessState());
     } catch (e) {
       emit(AppSearchForBookFailureState(errorMessage: 'There are no books with this name, try another name'));
+    }
+  }
+
+  CategoryBookModel? categoryBookModel;
+  void getCategoryBooks({required String categoryId}) async{
+    emit(AppGetCategoryBooksLoadingState());
+    try {
+      Response response = await DioHelper.getData(
+            url: '/api/v1/categories/$categoryId/books',
+            token: token,
+          );
+      categoryBookModel = CategoryBookModel.fromJson(response.data);
+      print(categoryBookModel!.data[0].id);
+      emit(AppGetCategoryBooksSuccessState());
+    } catch (e) {
+      print(e);
+      emit(AppGetCategoriesFailureState(errorMessage: 'There was an error'));
     }
   }
 
