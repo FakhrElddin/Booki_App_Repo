@@ -56,7 +56,7 @@ class _SearchViewState extends State<SearchView> {
                   hintText: 'Search',
                   prefixIcon: const Icon(Icons.search),
                   onFieldSubmitted: (value) {
-                    if (value?.isNotEmpty ?? true) {
+                    if (value?.isNotEmpty ?? false) {
                       appCubit.searchForBook(bookName: value!);
                     }
                   },

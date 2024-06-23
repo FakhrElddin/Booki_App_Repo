@@ -35,7 +35,7 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
           showToastMessage(
             context,
             message: state.errorMessage,
-            state: ToastStates.SUCCESS,
+            state: ToastStates.ERROR,
           );
         }
       },

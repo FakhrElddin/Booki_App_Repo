@@ -219,21 +219,26 @@ class AppCubit extends Cubit<AppState> {
   FavoritesModel? favoritesModel;
   List<FavoritesDataModel> favoritesList = [];
   void getUserFavorites() async{
+    emit(AppGetFavoritesLoadingState());
     try {
       Response response = await DioHelper.getData(
-            url: 'api/v1/wishlist',
+            url: FAVORITES,
             token: token,
           );
       favoritesModel = FavoritesModel.fromJson(response.data);
       for(var book in favoritesModel!.data){
         favoritesList.add(book);
       }
-      print(favoritesModel!.data[0].images);
-      print(favoritesList[0].images);
+      //print(favoritesModel!.data[0].images);
+      //print(favoritesList[0].id);
+      emit(AppGetFavoritesSuccessState());
     } on DioException catch(e){
+      print('1-');
       emit(AppGetFavoritesFailureState(errorMessage: 'There was an error, try again later'));
       print(e.response.toString());
     } catch (e) {
+      print('2-');
+      print(e.toString());
       emit(AppGetFavoritesFailureState(errorMessage: 'There was an error, try again'));
     }
   }
@@ -293,12 +298,20 @@ class AppCubit extends Cubit<AppState> {
     print(name);
     print(cardId);
     print(city);
+    String image = '';
+    String card = '';
+    if(profileImage != null) {
+      image = 'profileImage';
+    }
+    if(cardId?.isNotEmpty ?? false){
+      card = 'cardId';
+    }
     var formData = FormData.fromMap({
       'email': email,
-      'title': name,
+      'name': 'Fakhr-Elddin',
       'city': city ?? 'Faiyum',
-      'cardId': cardId ?? '00000000000000',
-      'profileImage': await MultipartFile.fromFile(profileImage!.path),
+      card: cardId ?? '00000000000000',
+      image: await MultipartFile.fromFile(profileImage!.path),
     });
     try {
       Dio dio = Dio();
@@ -326,6 +339,7 @@ class AppCubit extends Cubit<AppState> {
     } on DioException catch(e){
       print('first');
       print(e.response!.data);
+      print(e.response!.statusCode);
       emit(AppUpdateProfileFailureState(errorMessage: 'Failed to update profile'));
     }
     catch (e) {
