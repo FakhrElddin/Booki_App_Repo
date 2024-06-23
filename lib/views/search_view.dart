@@ -98,12 +98,12 @@ class _SearchViewState extends State<SearchView> {
                         child: ListView.separated(
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) => SearchItem(
-                            searchDataModel: appCubit.searchModel!.data[index],
+                            searchDataModel: appCubit.searchedBooksList[index],
                           ),
                           separatorBuilder: (context, index) => const SizedBox(
                             height: 16,
                           ),
-                          itemCount: appCubit.searchModel!.data.length,
+                          itemCount: appCubit.searchedBooksList.length,
                         ),
                       ),
                     ],

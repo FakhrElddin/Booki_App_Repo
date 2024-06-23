@@ -57,8 +57,9 @@ class AppView extends StatelessWidget {
                 actions: [
                   IconButton(
                     onPressed: () {
+                      BlocProvider.of<AppCubit>(context).searchedBooksList = [];
                       Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return SearchView();
+                        return const SearchView();
                       }));
                     },
                     icon: const Icon(

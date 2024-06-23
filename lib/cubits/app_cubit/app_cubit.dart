@@ -335,6 +335,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   SearchModel? searchModel;
+  List<SearchDataModel> searchedBooksList = [];
   void searchForBook({required String bookName}) async{
     try {
       emit(AppSearchForBookLoadingState());
@@ -342,7 +343,11 @@ class AppCubit extends Cubit<AppState> {
             url: 'api/v1/books?keyword=$bookName',
           );
       searchModel = SearchModel.fromJson(response.data);
+      for(var book in searchModel!.data){
+        searchedBooksList.add(book);
+      }
       print(searchModel!.data[5].images);
+      print(searchedBooksList[0].id);
       emit(AppSearchForBookSuccessState());
     } catch (e) {
       emit(AppSearchForBookFailureState(errorMessage: 'There are no books with this name, try another name'));
