@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
 import 'package:graduation_project/cubits/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
+import 'package:graduation_project/views/search_view.dart';
 import 'package:graduation_project/widgets/leave_app_snack_bar.dart';
 
 class AppView extends StatelessWidget {
@@ -55,7 +56,11 @@ class AppView extends StatelessWidget {
                 ),
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return SearchView();
+                      }));
+                    },
                     icon: const Icon(
                       Icons.search,
                     ),

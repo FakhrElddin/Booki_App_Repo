@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/constants.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({super.key, this.hintText, this.suffixIcon, this.labelText, this.textInputType, this.isPassword = false, this.onFieldSubmitted, this.validator, this.textInputAction, this.onChanged, this.controller, this.readOnly = false, this.filledColor, this.fillColor, this.hintFontSize});
+  const CustomTextFormField({super.key, this.hintText, this.suffixIcon, this.labelText, this.textInputType, this.isPassword = false, this.onFieldSubmitted, this.validator, this.textInputAction, this.onChanged, this.controller, this.readOnly = false, this.filledColor, this.fillColor, this.hintFontSize, this.prefixIcon});
 
   final String? hintText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final String? labelText;
   final TextInputType? textInputType;
   final bool isPassword;
@@ -34,6 +35,7 @@ class CustomTextFormField extends StatelessWidget {
         labelText: labelText,
         hintText: hintText,
         suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
         fillColor: fillColor,
         filled: filledColor,
         labelStyle: const TextStyle(

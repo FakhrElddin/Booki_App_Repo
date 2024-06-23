@@ -11,6 +11,7 @@ import 'package:graduation_project/models/category_model.dart';
 import 'package:graduation_project/models/favorites_model.dart';
 import 'package:graduation_project/models/home_grid_books_model.dart';
 import 'package:graduation_project/models/profile_model.dart';
+import 'package:graduation_project/models/search_model.dart';
 import 'package:graduation_project/models/user_books_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
@@ -330,6 +331,21 @@ class AppCubit extends Cubit<AppState> {
       print('second');
       print(e);
       emit(AppUpdateProfileFailureState(errorMessage: 'There was an error'));
+    }
+  }
+
+  SearchModel? searchModel;
+  void searchForBook({required String bookName}) async{
+    try {
+      emit(AppSearchForBookLoadingState());
+      Response response = await DioHelper.getData(
+            url: 'api/v1/books?keyword=$bookName',
+          );
+      searchModel = SearchModel.fromJson(response.data);
+      print(searchModel!.data[5].images);
+      emit(AppSearchForBookSuccessState());
+    } catch (e) {
+      emit(AppSearchForBookFailureState(errorMessage: 'There are no books with this name, try another name'));
     }
   }
 
