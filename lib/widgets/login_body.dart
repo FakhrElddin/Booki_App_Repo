@@ -201,46 +201,46 @@ class LoginBody extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        const Text(
-                          'or sign up with',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/images/google.png',
-                              ),
-                            ),
-                            SizedBox(
-                              width: 32,
-                            ),
-                            CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/images/apple.png',
-                              ),
-            
-                            ),
-                            SizedBox(
-                              width: 32,
-                            ),
-                            CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/images/facebook.png',
-                              ),
-                            ),
-                          ],
-                        ),
+                        // const SizedBox(
+                        //   height: 8,
+                        // ),
+                        // const Text(
+                        //   'or sign up with',
+                        //   style: TextStyle(
+                        //     color: Colors.grey,
+                        //     fontSize: 16,
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   height: 24,
+                        // ),
+                        // const Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     CircleAvatar(
+                        //       backgroundImage: AssetImage(
+                        //         'assets/images/google.png',
+                        //       ),
+                        //     ),
+                        //     SizedBox(
+                        //       width: 32,
+                        //     ),
+                        //     CircleAvatar(
+                        //       backgroundImage: AssetImage(
+                        //         'assets/images/apple.png',
+                        //       ),
+                        //
+                        //     ),
+                        //     SizedBox(
+                        //       width: 32,
+                        //     ),
+                        //     CircleAvatar(
+                        //       backgroundImage: AssetImage(
+                        //         'assets/images/facebook.png',
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

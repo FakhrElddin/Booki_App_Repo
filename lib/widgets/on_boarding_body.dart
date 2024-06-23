@@ -19,23 +19,23 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
   final List<BoardingModel> boardingList = const [
     BoardingModel(
       image: 'assets/images/onboarding_1.svg',
-      title: 'Boarding 1 title',
+      title: 'About App',
       body: 'User-friendly book store app with diverse genres, reviews, and a simple interface for effortless browsing and buying',
     ),
     BoardingModel(
       image: 'assets/images/onboarding_2.svg',
-      title: 'Boarding 2 title',
+      title: 'Diversity Of Books',
       body: 'Explore a virtual haven for bookworms with our app—browse, discover, and purchase your favorite reads anytime, anywhere',
     ),
-    BoardingModel(
-      image: 'assets/images/onboarding_3.svg',
-      title: 'Boarding 3 title',
-      body: 'Boarding 3 body',
-    ),
+    // BoardingModel(
+    //   image: 'assets/images/onboarding_3.svg',
+    //   title: 'Boarding 3 title',
+    //   body: 'Boarding 3 body',
+    // ),
     BoardingModel(
       image: 'assets/images/onboarding_4.svg',
-      title: 'Boarding 4 title',
-      body: 'Boarding 4 body',
+      title: 'Exchange',
+      body: 'Users can chat with each other to exchange their books',
     ),
   ];
 
