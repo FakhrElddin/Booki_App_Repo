@@ -30,6 +30,7 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
             message: 'Profile Updated Successfully',
             state: ToastStates.SUCCESS,
           );
+          Navigator.pop(context);
         }
         if(state is AppUpdateProfileFailureState){
           showToastMessage(
@@ -68,6 +69,8 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if(state is AppUpdateProfileLoadingState || state is AppGetProfileInfoLoadingState)
+                  LinearProgressIndicator(),
                   const SizedBox(
                     height: 25,
                   ),

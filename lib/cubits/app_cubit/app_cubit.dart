@@ -309,21 +309,27 @@ class AppCubit extends Cubit<AppState> {
     }
     var formData = FormData.fromMap({
       'email': email,
-      'name': 'Fakhr-Elddin',
+      'name': name,
       'city': city ?? 'Faiyum',
       card: cardId ?? '00000000000000',
       image: await MultipartFile.fromFile(profileImage!.path),
     });
     try {
       Dio dio = Dio();
-      dio.options.headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-
-      };
+      // dio.options.headers = {
+      //   'Content-Type': 'application/json',
+      //   'Authorization': 'Bearer $token',
+      //
+      // };
       Response response = await dio.put(
         'http://10.0.2.2:4000/api/v1/user/updateData',
         data: formData,
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+          ),
       );
       // Response response = await DioHelper.putDat(
       //       url: UPDATEPROFILE,
@@ -335,6 +341,7 @@ class AppCubit extends Cubit<AppState> {
       //         'cardId': cardId ?? '00000000000000',
       //       },
       //     );
+      getProfileInfo();
       print(response.data);
       emit(AppUpdateProfileSuccessState());
     } on DioException catch(e){
