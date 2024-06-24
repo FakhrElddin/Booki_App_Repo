@@ -220,6 +220,7 @@ class AppCubit extends Cubit<AppState> {
   List<FavoritesDataModel> favoritesList = [];
   void getUserFavorites() async{
     emit(AppGetFavoritesLoadingState());
+    favoritesList = [];
     try {
       Response response = await DioHelper.getData(
             url: FAVORITES,
@@ -383,6 +384,28 @@ class AppCubit extends Cubit<AppState> {
     } catch (e) {
       print(e);
       emit(AppGetCategoriesFailureState(errorMessage: 'There was an error'));
+    }
+  }
+
+  void addToFavorites({required String bookId}) async{
+    try {
+      emit(AppAddToFavoritesLoadingState());
+      Response response = await DioHelper.postData(
+            url: 'api/v1/wishlist/',
+            data: {
+              'bookId': bookId,
+            },
+        token: token,
+          );
+      print(response.data);
+      getUserFavorites();
+      emit(AppAddToFavoritesSuccessState());
+      print('add to favorites success');
+    } on DioException catch(e){
+      print(e.response!.data);
+    } catch (e) {
+      print(e);
+      emit(AppAddToFavoritesFailureState(errorMessage: e.toString()));
     }
   }
 

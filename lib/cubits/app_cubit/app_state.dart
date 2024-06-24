@@ -129,3 +129,12 @@ class AppGetCategoryBooksFailureState extends AppState {
   final String errorMessage;
   AppGetCategoryBooksFailureState({required this.errorMessage});
 }
+
+class AppAddToFavoritesLoadingState extends AppState {}
+
+class AppAddToFavoritesSuccessState extends AppState {}
+
+class AppAddToFavoritesFailureState extends AppState {
+  final String errorMessage;
+  AppAddToFavoritesFailureState({required this.errorMessage});
+}
