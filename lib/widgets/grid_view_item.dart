@@ -1,14 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
 import 'package:graduation_project/models/book_model.dart';
 import 'package:graduation_project/models/home_grid_books_model.dart';
 import 'package:graduation_project/views/book_view.dart';
 
-class GridViewItem extends StatelessWidget {
+class GridViewItem extends StatefulWidget {
   const GridViewItem({super.key, required this.homeGridBooksDataModel});
 
   final HomeGridBooksDataModel homeGridBooksDataModel;
 
+  @override
+  State<GridViewItem> createState() => _GridViewItemState();
+}
+
+class _GridViewItemState extends State<GridViewItem> {
+  IconData favoriteIcon = Icons.favorite_border;
+  bool inFavorites = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -16,17 +25,17 @@ class GridViewItem extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (context){
           return BookView(
             bookModel: BookModel(
-              title: homeGridBooksDataModel.title,
-              edition: homeGridBooksDataModel.edition,
-              category: homeGridBooksDataModel.category.name,
-              timeUsed: homeGridBooksDataModel.usedTime,
-              price: homeGridBooksDataModel.price,
-              status: homeGridBooksDataModel.state,
-              bookOwnerName: homeGridBooksDataModel.user.name,
-              bookOwnerId: homeGridBooksDataModel.user.id,
-              bookCoverImage: homeGridBooksDataModel.coverImage,
-              bookPrintingImage: homeGridBooksDataModel.images[0],
-              bookStubImage: homeGridBooksDataModel.images[1],
+              title: widget.homeGridBooksDataModel.title,
+              edition: widget.homeGridBooksDataModel.edition,
+              category: widget.homeGridBooksDataModel.category.name,
+              timeUsed: widget.homeGridBooksDataModel.usedTime,
+              price: widget.homeGridBooksDataModel.price,
+              status: widget.homeGridBooksDataModel.state,
+              bookOwnerName: widget.homeGridBooksDataModel.user.name,
+              bookOwnerId: widget.homeGridBooksDataModel.user.id,
+              bookCoverImage: widget.homeGridBooksDataModel.coverImage,
+              bookPrintingImage: widget.homeGridBooksDataModel.images[0],
+              bookStubImage: widget.homeGridBooksDataModel.images[1],
               bookOwnerImage: 'bookOwnerImage',
             ),
           );
@@ -51,10 +60,18 @@ class GridViewItem extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: (){},
-                icon: const Icon(
-                  Icons.favorite_border,
-                  color: Colors.white,
+                onPressed: (){
+                  setState(() {
+                    if(inFavorites == false){
+                      favoriteIcon = Icons.favorite;
+                      inFavorites = true;
+                      BlocProvider.of<AppCubit>(context).addToFavorites(bookId: widget.homeGridBooksDataModel.id);
+                    }
+                  });
+                },
+                icon: Icon(
+                  favoriteIcon,
+                  color: inFavorites ? Colors.red : Colors.white,
                 ),
               ),
               const SizedBox(
@@ -78,7 +95,7 @@ class GridViewItem extends StatelessWidget {
           SizedBox(
             width: 120,
             child: Text(
-              homeGridBooksDataModel.title,
+              widget.homeGridBooksDataModel.title,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.normal
               ),
@@ -92,7 +109,7 @@ class GridViewItem extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  '${homeGridBooksDataModel.price} EGP',
+                  '${widget.homeGridBooksDataModel.price} EGP',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(
@@ -108,7 +125,7 @@ class GridViewItem extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  homeGridBooksDataModel.user.name,
+                  widget.homeGridBooksDataModel.user.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodySmall,
