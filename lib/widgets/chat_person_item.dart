@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/views/chat_messages_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/models/conversations_model.dart';
+import 'package:graduation_project/views/chat_room_view.dart';
 
 class ChatPersonItem extends StatelessWidget {
-  const ChatPersonItem({super.key});
+  const ChatPersonItem({super.key, required this.conversationsDataModel});
+
+  final ConversationsDataModel conversationsDataModel;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
+        BlocProvider.of<AppCubit>(context).getMessagesOfSpecificConversation(conversationId: conversationsDataModel.id);
         Navigator.push(context, MaterialPageRoute(builder: (context){
-          return const ChatMessagesView();
+          return ChatRoomView(
+            name: conversationsDataModel.owner.name,
+            conversationId: conversationsDataModel.id,
+          );
         },
         ),
         );
       },
-      child: const Row(
+      child: Row(
         children: [
           CircleAvatar(
             radius: 25,
@@ -29,7 +38,7 @@ class ChatPersonItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Mohamed Ahmed',
+                  conversationsDataModel.owner.name,
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold

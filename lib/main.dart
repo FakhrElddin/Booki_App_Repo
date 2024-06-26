@@ -19,6 +19,7 @@ void main() async {
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false;
   token = CacheHelper.getData(key: 'token');
   userId = CacheHelper.getData(key: 'userId');
+  print(userId);
   late Widget startView;
 
   if (onBoarding ?? false) {
@@ -40,7 +41,7 @@ class BookiApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => BottomNavBarCubit(),),
-        BlocProvider(create: (context) => AppCubit()..getCategories()..getUserBooks()..getHomeGridBooks()..getUserFavorites()..getProfileInfo(),),
+        BlocProvider(create: (context) => AppCubit()..getCategories()..getUserBooks()..getHomeGridBooks()..getUserFavorites()..getProfileInfo()..getConversations(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -32,26 +32,26 @@ class HomeViewBody extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              const Text(
-                'For You',
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              SizedBox(
-                height: 250,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => const BookItem(),
-                  separatorBuilder: (context, index) =>
-                  const SizedBox(width: 24,),
-                  itemCount: 10,
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
+              // const Text(
+              //   'For You',
+              // ),
+              // const SizedBox(
+              //   height: 8,
+              // ),
+              // SizedBox(
+              //   height: 250,
+              //   child: ListView.separated(
+              //     scrollDirection: Axis.horizontal,
+              //     physics: const BouncingScrollPhysics(),
+              //     itemBuilder: (context, index) => const BookItem(),
+              //     separatorBuilder: (context, index) =>
+              //     const SizedBox(width: 24,),
+              //     itemCount: 10,
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 30,
+              // ),
               const Text(
                 'Categories',
               ),

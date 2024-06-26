@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/helper/show_toast_message.dart';
 import 'package:graduation_project/widgets/home_view_body.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,7 +13,13 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if(state is AppAddToFavoritesFailureState){
+          showToastMessage(
+            context,
+            message: 'can not do this action',
+            state: ToastStates.ERROR,
+          );
+        }
       },
       builder: (context, state) {
         var appCubit = BlocProvider.of<AppCubit>(context);

@@ -25,6 +25,7 @@ class _GridViewItemState extends State<GridViewItem> {
         Navigator.push(context, MaterialPageRoute(builder: (context){
           return BookView(
             bookModel: BookModel(
+              bookId: widget.homeGridBooksDataModel.id,
               title: widget.homeGridBooksDataModel.title,
               edition: widget.homeGridBooksDataModel.edition,
               category: widget.homeGridBooksDataModel.category.name,
@@ -52,8 +53,8 @@ class _GridViewItemState extends State<GridViewItem> {
                   width: 120,
                   height: 180,
                   fit: BoxFit.cover,
-                  imageUrl: "https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
-                  //imageUrl: homeGridBooksDataModel.coverImage,
+                  //imageUrl: "https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
+                  imageUrl: widget.homeGridBooksDataModel.coverImage,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
                   errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),

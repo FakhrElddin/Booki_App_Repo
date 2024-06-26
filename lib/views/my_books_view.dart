@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/helper/show_toast_message.dart';
 import 'package:graduation_project/views/add_book_view.dart';
 import 'package:graduation_project/widgets/my_books_view_body.dart';
 
@@ -12,7 +13,20 @@ class MyBooksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if(state is AppDeleteUserBookFailureState){
+          showToastMessage(
+            context,
+            message: state.errorMessage,
+            state: ToastStates.ERROR,
+          );
+        }
+        if(state is AppDeleteUserBookSuccessState){
+          showToastMessage(
+            context,
+            message: 'Book deleted successfully',
+            state: ToastStates.SUCCESS,
+          );
+        }
       },
       builder: (context, state) {
         return Scaffold(
