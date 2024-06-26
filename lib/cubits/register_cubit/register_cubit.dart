@@ -66,7 +66,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   void registerUser({required String email, required String code}) async{
     emit(RegisterLoadingState());
     try {
-      Response response = await DioHelper.putDat(
+      Response response = await DioHelper.putData(
             url: VERIFY_OTP,
             data: {
               'email': email,

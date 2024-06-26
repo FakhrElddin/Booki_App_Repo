@@ -9,9 +9,12 @@ import 'package:graduation_project/helper/end_points.dart';
 import 'package:graduation_project/models/add_book_model.dart';
 import 'package:graduation_project/models/category_book_model.dart';
 import 'package:graduation_project/models/category_model.dart';
+import 'package:graduation_project/models/conversations_model.dart';
 import 'package:graduation_project/models/favorites_model.dart';
 import 'package:graduation_project/models/home_grid_books_model.dart';
+import 'package:graduation_project/models/message_model.dart';
 import 'package:graduation_project/models/profile_model.dart';
+import 'package:graduation_project/models/room_messages_model.dart';
 import 'package:graduation_project/models/search_model.dart';
 import 'package:graduation_project/models/user_books_model.dart';
 import 'package:image_picker/image_picker.dart';
@@ -74,6 +77,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   File? bookStubImage;
+
   void addBookStubImage() async {
     final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
@@ -90,6 +94,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   File? bookPrintingImage;
+
   void addBookPrintingImage() async {
     final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
@@ -128,8 +133,14 @@ class AppCubit extends Cubit<AppState> {
       // );
       // //
       List<MultipartFile> images = [];
-      images.add(await MultipartFile.fromFile(bookStubImage!.path, filename: bookStubImage!.path.split('/').last,));
-      images.add(await MultipartFile.fromFile(bookPrintingImage!.path, filename: bookPrintingImage!.path.split('/').last,));
+      images.add(await MultipartFile.fromFile(
+        bookStubImage!.path,
+        filename: bookStubImage!.path.split('/').last,
+      ));
+      images.add(await MultipartFile.fromFile(
+        bookPrintingImage!.path,
+        filename: bookPrintingImage!.path.split('/').last,
+      ));
       var formData = FormData.fromMap({
         'title': name,
         'price': price,
@@ -137,7 +148,10 @@ class AppCubit extends Cubit<AppState> {
         'edition': edition,
         'category': addBookCategoryValue,
         'state': addBookStateValue,
-        'coverImage': await MultipartFile.fromFile(bookStubImage!.path, filename: bookStubImage!.path.split('/').last,),
+        'coverImage': await MultipartFile.fromFile(
+          bookCoverImage!.path,
+          filename: bookCoverImage!.path.split('/').last,
+        ),
         'images': images,
       });
       Dio dio = Dio();
@@ -156,7 +170,8 @@ class AppCubit extends Cubit<AppState> {
     } on DioException catch (e) {
       print('add book failure state 1');
       print(e.response?.data ?? 'response is null');
-      emit(AppAddBookFailureState(errorMessage: e.response!.data['errors'][0]['msg']));
+      emit(AppAddBookFailureState(
+          errorMessage: e.response!.data['errors'][0]['msg']));
     } catch (e) {
       print('add book failure state 2 : ${e.toString()}');
       emit(AppAddBookFailureState(
@@ -165,15 +180,23 @@ class AppCubit extends Cubit<AppState> {
   }
 
   UserBooksModel? userBooksModel;
-  void getUserBooks() async{
+
+  void getUserBooks() async {
     emit(AppGetUserBooksLoadingState());
     try {
       Response response = await DioHelper.getData(
-            url: '/api/v1/user/$userId/books',
-          );
+        url: '/api/v1/user/$userId/books',
+        token: token,
+      );
       userBooksModel = UserBooksModel.fromJson(response.data);
+      print('user books');
+      print(userBooksModel!.data);
       emit(AppGetUserBooksSuccessState());
+    } on DioException catch(e){
+      print(e.response!.data);
+      emit(AppGetUserBooksFailureState(errorMessage: 'There was an error'));
     } catch (e) {
+      print(e.toString());
       emit(AppGetUserBooksFailureState(errorMessage: 'There was an error'));
     }
   }
@@ -181,98 +204,104 @@ class AppCubit extends Cubit<AppState> {
   int pageNumber = 1;
   HomeGridBooksModel? homeGridBooksModel;
   List<HomeGridBooksDataModel> homeGridBooks = [];
-  void getHomeGridBooks({bool fromPagination = false}) async{
-    if(fromPagination){
+
+  void getHomeGridBooks({bool fromPagination = false}) async {
+    homeGridBooks = [];
+    if (fromPagination) {
       emit(AppGetNextPageForHomeGridBooksLoadingState());
       pageNumber++;
-    } else{
+    } else {
       emit(AppGetHomeGridBooksLoadingState());
     }
     try {
       Response response = await DioHelper.getData(
-            url: 'api/v1/books?page=$pageNumber&limit=9',
-          );
+        url: 'api/v1/books?page=$pageNumber&limit=9',
+      );
       homeGridBooksModel = HomeGridBooksModel.fromJson(response.data);
-      for(var book in homeGridBooksModel!.data){
+      for (var book in homeGridBooksModel!.data) {
         homeGridBooks.add(book);
       }
       emit(AppGetHomeGridBooksSuccessState());
-    } on DioException catch(e){
+    } on DioException catch (e) {
       print('1');
       print(e.response!.data);
       emit(AppGetHomeGridBooksFailureState(errorMessage: 'There was an error'));
-    }
-    catch (e) {
+    } catch (e) {
       print('2');
       print(e.toString());
       emit(AppGetHomeGridBooksFailureState(errorMessage: 'There was an error'));
     }
   }
 
-  void getNextPageForHomeGridBooks({required bool fromPagination}){
-    if(pageNumber >= homeGridBooksModel!.paginationResult.numberOfPages){}
-    else{
+  void getNextPageForHomeGridBooks({required bool fromPagination}) {
+    if (pageNumber >= homeGridBooksModel!.paginationResult.numberOfPages) {
+    } else {
       getHomeGridBooks(fromPagination: fromPagination);
     }
   }
 
   FavoritesModel? favoritesModel;
   List<FavoritesDataModel> favoritesList = [];
-  void getUserFavorites() async{
+
+  void getUserFavorites() async {
     emit(AppGetFavoritesLoadingState());
     favoritesList = [];
     try {
       Response response = await DioHelper.getData(
-            url: FAVORITES,
-            token: token,
-          );
+        url: FAVORITES,
+        token: token,
+      );
       favoritesModel = FavoritesModel.fromJson(response.data);
-      for(var book in favoritesModel!.data){
+      for (var book in favoritesModel!.data) {
         favoritesList.add(book);
       }
       //print(favoritesModel!.data[0].images);
       //print(favoritesList[0].id);
       emit(AppGetFavoritesSuccessState());
-    } on DioException catch(e){
+    } on DioException catch (e) {
       print('1-');
-      emit(AppGetFavoritesFailureState(errorMessage: 'There was an error, try again later'));
+      emit(AppGetFavoritesFailureState(
+          errorMessage: 'There was an error, try again later'));
       print(e.response.toString());
     } catch (e) {
       print('2-');
       print(e.toString());
-      emit(AppGetFavoritesFailureState(errorMessage: 'There was an error, try again'));
+      emit(AppGetFavoritesFailureState(
+          errorMessage: 'There was an error, try again'));
     }
   }
 
   ProfileModel? profileModel;
-  void getProfileInfo() async{
+
+  void getProfileInfo() async {
     emit(AppGetProfileInfoLoadingState());
     try {
       Response response = await DioHelper.getData(
         url: PROFILEINFO,
         token: token,
-          );
+      );
       profileModel = ProfileModel.formJson(response.data);
       print('profile data = ${profileModel!.data.email}');
       emit(AppGetProfileInfoSuccessState());
-    } on DioException catch(e){
+    } on DioException catch (e) {
       print('1');
       print(e.response!.data);
-      emit(AppGetProfileInfoFailureState(errorMessage: 'You are not logged in'));
-    }
-    catch (e) {
+      emit(
+          AppGetProfileInfoFailureState(errorMessage: 'You are not logged in'));
+    } catch (e) {
       print('2');
       print(e.toString());
       emit(AppGetProfileInfoFailureState(errorMessage: 'There was an error'));
     }
   }
 
-  void logoutUser(){
+  void logoutUser() {
     profileModel = null;
     print(profileModel?.data.email);
   }
 
   File? profileImage;
+
   void addProfileImage() async {
     final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
@@ -293,7 +322,7 @@ class AppCubit extends Cubit<AppState> {
     required String name,
     String? cardId,
     String? city,
-  }) async{
+  }) async {
     emit(AppUpdateProfileLoadingState());
     print(email);
     print(name);
@@ -301,10 +330,10 @@ class AppCubit extends Cubit<AppState> {
     print(city);
     String image = '';
     String card = '';
-    if(profileImage != null) {
+    if (profileImage != null) {
       image = 'profileImage';
     }
-    if(cardId?.isNotEmpty ?? false){
+    if (cardId?.isNotEmpty ?? false) {
       card = 'cardId';
     }
     var formData = FormData.fromMap({
@@ -324,12 +353,12 @@ class AppCubit extends Cubit<AppState> {
       Response response = await dio.put(
         'http://10.0.2.2:4000/api/v1/user/updateData',
         data: formData,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token',
-            },
-          ),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
       );
       // Response response = await DioHelper.putDat(
       //       url: UPDATEPROFILE,
@@ -344,13 +373,13 @@ class AppCubit extends Cubit<AppState> {
       getProfileInfo();
       print(response.data);
       emit(AppUpdateProfileSuccessState());
-    } on DioException catch(e){
+    } on DioException catch (e) {
       print('first');
       print(e.response!.data);
       print(e.response!.statusCode);
-      emit(AppUpdateProfileFailureState(errorMessage: 'Failed to update profile'));
-    }
-    catch (e) {
+      emit(AppUpdateProfileFailureState(
+          errorMessage: 'Failed to update profile'));
+    } catch (e) {
       print('second');
       print(e);
       emit(AppUpdateProfileFailureState(errorMessage: 'There was an error'));
@@ -359,32 +388,44 @@ class AppCubit extends Cubit<AppState> {
 
   SearchModel? searchModel;
   List<SearchDataModel> searchedBooksList = [];
-  void searchForBook({required String bookName}) async{
+
+  void searchForBook({required String bookName}) async {
+    searchedBooksList = [];
     try {
       emit(AppSearchForBookLoadingState());
       Response response = await DioHelper.getData(
-            url: 'api/v1/books?keyword=$bookName',
-          );
+        url: 'api/v1/books?keyword=$bookName',
+      );
       searchModel = SearchModel.fromJson(response.data);
-      for(var book in searchModel!.data){
+      for (var book in searchModel!.data) {
         searchedBooksList.add(book);
       }
-      print(searchModel!.data[5].images);
-      print(searchedBooksList[0].id);
-      emit(AppSearchForBookSuccessState());
+
+      //print(searchModel!.data[5].images);
+      //print(searchedBooksList[0].id);
+      if(searchedBooksList.isEmpty){
+        emit(AppSearchForBookFailureState(
+            errorMessage: 'There are no books with this name, try another name'));
+      }
+        else{
+        emit(AppSearchForBookSuccessState());
+      }
+
     } catch (e) {
-      emit(AppSearchForBookFailureState(errorMessage: 'There are no books with this name, try another name'));
+      emit(AppSearchForBookFailureState(
+          errorMessage: 'There are no books with this name, try another name'));
     }
   }
 
   CategoryBookModel? categoryBookModel;
-  void getCategoryBooks({required String categoryId}) async{
+
+  void getCategoryBooks({required String categoryId}) async {
     emit(AppGetCategoryBooksLoadingState());
     try {
       Response response = await DioHelper.getData(
-            url: '/api/v1/categories/$categoryId/books',
-            token: token,
-          );
+        url: '/api/v1/categories/$categoryId/books',
+        token: token,
+      );
       categoryBookModel = CategoryBookModel.fromJson(response.data);
       print(categoryBookModel!.data[0].id);
       emit(AppGetCategoryBooksSuccessState());
@@ -394,25 +435,135 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-  void addToFavorites({required String bookId}) async{
+  void addToFavorites({required String bookId}) async {
     try {
       emit(AppAddToFavoritesLoadingState());
       Response response = await DioHelper.postData(
-            url: 'api/v1/wishlist/',
-            data: {
-              'bookId': bookId,
-            },
+        url: 'api/v1/wishlist/',
+        data: {
+          'bookId': bookId,
+        },
         token: token,
-          );
+      );
       print(response.data);
       getUserFavorites();
       emit(AppAddToFavoritesSuccessState());
       print('add to favorites success');
-    } on DioException catch(e){
-      print(e.response!.data);
+    } on DioException catch (e) {
+      emit(AppAddToFavoritesFailureState(errorMessage: 'can not do this action'));
+      //print(e.response!.data);
     } catch (e) {
       print(e);
-      emit(AppAddToFavoritesFailureState(errorMessage: e.toString()));
+      emit(AppAddToFavoritesFailureState(errorMessage: 'can not do this action'));
+    }
+  }
+
+  //ConversationModel? conversationModel;
+  String? conversationId;
+  void createConversation({
+    required String bookId,
+  }) async{
+    emit(AppCreateConversationLoadingState());
+    try {
+      Response response = await DioHelper.postData(
+            url: 'api/v1/conversation',
+            data: {
+              'book': bookId,
+            },
+            token: token,
+          );
+      conversationId = response.data['data']['_id'];
+      //conversationModel = ConversationModel.fromJson(response.data);
+      print(conversationId);
+      emit(AppCreateConversationSuccessState());
+    } on DioException catch(e){
+      print(e.response!.data);
+      emit(AppCreateConversationFailureState(errorMessage: 'You can not apply this action'));
+    } catch (e) {
+      print(e);
+      emit(AppCreateConversationFailureState(errorMessage: 'you can not apply this action'));
+    }
+  }
+
+  ConversationsModel? conversationsModel;
+  void getConversations() async{
+    emit(AppGetConversationsLoadingState());
+    try {
+      Response response = await DioHelper.getData(
+            url: 'api/v1/conversation/getMyConversations',
+            token: token,
+          );
+      conversationsModel = ConversationsModel.fromJson(response.data);
+      emit(AppGetConversationsSuccessState());
+    } on DioException catch(e) {
+      emit(AppGetConversationsFailureState(errorMessage: 'you can not apply this action'));
+    } catch (e) {
+      print(e);
+      emit(AppGetConversationsFailureState(errorMessage: e.toString()));
+    }
+  }
+
+  MessageModel? messageModel;
+  void createMessage({
+    required String conversationId,
+    required String message,
+  }) async{
+    try {
+      Response response = await DioHelper.postData(
+        url: 'api/v1/messages',
+        data: {
+          'conversation': conversationId,
+          'text': message,
+        },
+        token: token,
+      );
+      messageModel = MessageModel.fromJson(response.data);
+      emit(AppSendMessageSuccessState());
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  RoomMessagesModel? roomMessagesModel;
+  List<RoomMessageDataModel> messagesList = [];
+  List<RoomMessageDataModel> messages = [];
+  void getMessagesOfSpecificConversation({required String conversationId}) async{
+    messagesList = [];
+    emit(AppGetMessageLoadingState());
+    try {
+      Response response = await DioHelper.getData(
+            url: 'api/v1/conversation/$conversationId/messages',
+            token: token,
+          );
+      roomMessagesModel = RoomMessagesModel.fromJson(response.data);
+      for(var message in roomMessagesModel!.messages){
+        messagesList.add(message);
+      }
+      print(messagesList[0].messageText);
+      messages = messagesList.reversed.toList();
+      print(messages[0].messageText);
+      emit(AppGetMessageSuccessState());
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void deleteUserBook({required String bookId}) async{
+    emit(AppDeleteUserBookLoadingState());
+    try {
+      Response response = await DioHelper.deleteData(
+        url: 'api/v1/books/$bookId',
+        token: token,
+      );
+      getUserBooks();
+      getHomeGridBooks();
+      emit(AppDeleteUserBookSuccessState());
+    } on DioException catch(e){
+      print(e.response!.data);
+      emit(AppDeleteUserBookFailureState(errorMessage: 'Error'));
+    }catch (e) {
+      emit(AppDeleteUserBookFailureState(errorMessage: 'Error'));
+      print(e);
     }
   }
 

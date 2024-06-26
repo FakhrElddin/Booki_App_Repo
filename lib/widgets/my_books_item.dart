@@ -1,6 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/constants.dart';
+import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
+import 'package:graduation_project/helper/show_awesome_dialog.dart';
 import 'package:graduation_project/models/user_books_model.dart';
 
 class MyBooksItem extends StatelessWidget {
@@ -61,9 +65,20 @@ class MyBooksItem extends StatelessWidget {
                   children: [
                     const Spacer(),
                     IconButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        showAwesomeDialog(
+                            context,
+                            title: 'Warning',
+                            body: 'Do you want to delete this book from your gallery?',
+                            dialogType: DialogType.warning,
+                            okOnPress: (){
+                              BlocProvider.of<AppCubit>(context).deleteUserBook(bookId: userBooksDataModel.id);
+                            }
+                        );
+                      },
                       icon: const Icon(
-                        Icons.more_horiz,
+                        Icons.delete,
+                        color: Colors.red,
                       ),
                     ),
                   ],

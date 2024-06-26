@@ -1,4 +1,5 @@
 class BookModel{
+  final String bookId;
   final String title;
   final int edition;
   final String category;
@@ -13,6 +14,7 @@ class BookModel{
   final String bookPrintingImage;
 
   BookModel({
+    required this.bookId,
     required this.title,
     required this.edition,
     required this.category,

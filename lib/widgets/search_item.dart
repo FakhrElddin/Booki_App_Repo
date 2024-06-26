@@ -18,6 +18,7 @@ class SearchItem extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (context){
           return BookView(
             bookModel: BookModel(
+              bookId: searchDataModel.id,
               title: searchDataModel.title,
               edition: searchDataModel.edition,
               category: searchDataModel.category.name,
@@ -44,10 +45,10 @@ class SearchItem extends StatelessWidget {
                 width: 120,
                 height: 180,
                 fit: BoxFit.cover,
+                //imageUrl:
+                //"https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
                 imageUrl:
-                "https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
-                // imageUrl:
-                // searchDataModel.coverImage,
+                searchDataModel.coverImage,
                 progressIndicatorBuilder:
                     (context, url, downloadProgress) => Center(
                     child: CircularProgressIndicator(

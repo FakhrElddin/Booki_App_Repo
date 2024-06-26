@@ -16,6 +16,7 @@ class FavoritesItem extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (context){
           return BookView(
             bookModel: BookModel(
+              bookId: favoritesDataModel.id,
               title: favoritesDataModel.title,
               edition: favoritesDataModel.edition,
               category: favoritesDataModel.category.name,

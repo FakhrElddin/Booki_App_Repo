@@ -138,3 +138,39 @@ class AppAddToFavoritesFailureState extends AppState {
   final String errorMessage;
   AppAddToFavoritesFailureState({required this.errorMessage});
 }
+
+class AppCreateConversationLoadingState extends AppState {}
+
+class AppCreateConversationSuccessState extends AppState {}
+
+class AppCreateConversationFailureState extends AppState {
+  final String errorMessage;
+  AppCreateConversationFailureState({required this.errorMessage});
+}
+
+class AppGetConversationsLoadingState extends AppState {}
+
+class AppGetConversationsSuccessState extends AppState {}
+
+class AppGetConversationsFailureState extends AppState {
+  final String errorMessage;
+  AppGetConversationsFailureState({required this.errorMessage});
+}
+
+class AppSendMessageSuccessState extends AppState {}
+
+class AppGetMessageLoadingState extends AppState {}
+
+class AppGetMessageSuccessState extends AppState {}
+
+class AppDeleteUserBookSuccessState extends AppState {}
+
+class AppDeleteUserBookLoadingState extends AppState {}
+
+class AppDeleteUserBookFailureState extends AppState {
+  final String errorMessage;
+
+  AppDeleteUserBookFailureState({required this.errorMessage});
+
+}
+

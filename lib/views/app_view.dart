@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graduation_project/constants.dart';
 import 'package:graduation_project/cubits/app_cubit/app_cubit.dart';
 import 'package:graduation_project/cubits/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
+import 'package:graduation_project/helper/show_toast_message.dart';
 import 'package:graduation_project/views/search_view.dart';
 import 'package:graduation_project/widgets/leave_app_snack_bar.dart';
 
@@ -15,7 +16,6 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<BottomNavBarCubit, BottomNavBarState>(
       listener: (context, state) {
-        // TODO: implement listener
       },
       builder: (context, state) {
         var bottomNavCubit = BlocProvider.of<BottomNavBarCubit>(context);

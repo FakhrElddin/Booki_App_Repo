@@ -29,7 +29,7 @@ class CategoryCard extends StatelessWidget {
             child: CachedNetworkImage(
               width: 180,
               height: 120,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
               imageUrl: categoryDataModel.image,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   Center(child: CircularProgressIndicator(value: downloadProgress.progress)),

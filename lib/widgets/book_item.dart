@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/views/book_view.dart';
 
 class BookItem extends StatelessWidget {
-  const BookItem({super.key});
+  const BookItem({super.key, required this.title, required this.name, required this.price, required this.image});
+
+  final String title;
+  final String name;
+  final String price;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class BookItem extends StatelessWidget {
                     width: 120,
                     height: 180,
                     fit: BoxFit.cover,
-                    imageUrl: "https://m.media-amazon.com/images/I/71xoHySBAEL.__AC_SX300_SY300_QL70_ML2_.jpg",
+                    imageUrl: image,
                     progressIndicatorBuilder: (context, url, downloadProgress) =>
                         Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
                     errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
@@ -60,7 +65,7 @@ class BookItem extends StatelessWidget {
             SizedBox(
               width: 120,
               child: Text(
-                'The Masterpieces The Masterpieces The Masterpieces',
+                title,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.normal
                 ),
@@ -74,7 +79,7 @@ class BookItem extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    '100 EGP',
+                    '$price EGP',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(
@@ -90,7 +95,7 @@ class BookItem extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    'seller name',
+                    name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall,
